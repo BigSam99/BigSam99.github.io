@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <meta property="og:title" content="Demo: Animate box-shadow" />
+  <meta property="og:description" content="How to animate box-shadow without crippling performance" />
+  <meta property="og:url" content="https://tobiasahlin.com/demo/animate-box-shadow/" />
+  <meta property="og:type" content="blog" />
+  <meta property="og:image" content="https://tobiasahlin.com/static/-social/og_demo-animate-box-shadow.jpg" />
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tobiasahlin" />
+  <meta name="twitter:creator" content="@tobiasahlin" />
+
+  <meta name="description" content="How to animate box-shadow without crippling performance" />
+  <meta name="keywords" content=", tobias ahlin, github, spotify, hyper island" />
+
+  <title>
+    Demo: Animate box-shadow | Tobias Ahlin
+  </title>
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/rss+xml"  href="../../feed.xml" title="Blog RSS Feed">
+  <link rel="apple-touch-icon" href="../../images/touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../../images/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../../images/touch-icon-iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../../images/touch-icon-ipad-retina.png">
+	<link rel="stylesheet" href="../../css/demo/box-shadow.css">
+</head>
+<body>
+
+<h1 class="demo-header">How to animate <code>box-shadow</code> without crippling performance</h1>
+<p class="demo-section-description"><a href="../../blog/how-to-animate-box-shadow/index.html" class="demo-return-link">Back to blog post</a></p>
+
+<div class="demo-area">
+  <div class="wrong-way a-way">
+    <h2 class="demo-section-header wrong-header"><span class="wrong-text">Don't:</span> Animate the <code>box-shadow</code> property</h2>
+    <div class="wrong-wrapper item-wrapper">
+      <div class="wrong-item item"></div>
+      <div class="wrong-item item"></div>
+      <div class="wrong-item item"></div>
+    </div>
+    <span class="demo-section-description">Hover the cards</span>
+
+    <div class="demo-description">
+    <p>Animating a changed <code>box-shadow</code> (in this case from <code>box-shadow: 0 1px 2px rgba(0,0,0,0.15)</code> to <code>box-shadow: 0 5px 15px rgba(0,0,0,0.3)</code> causes a re-paint on every frame.</p>
+
+    <p>Your desktop likely handles it without any issues, but your phone may not, and even your desktop may suffer when animating a more complex layout.</p>
+    </div>
+  </div>
+
+  <div class="correct-way a-way">
+    <h2 class="demo-section-header correct-header"><span class="correct-text">Do:</span> Animate a pseudo-element</h2>
+    <div class="correct-wrapper item-wrapper">
+      <div class="correct-item item"></div>
+      <div class="correct-item item"></div>
+      <div class="correct-item item"></div>
+    </div>
+    <span class="demo-section-description">Hover the cards</span>
+
+    <div class="demo-description">
+      <p><a href="../../blog/how-to-animate-box-shadow/index.html">We can minimize the amount of repaints by inserting a pseudo-element with <code>:after</code></a>, adding a shadow to that element, and then animating the <code>opacity</code> of the pseudo-element on <code>hover</code>.</p>
+
+      <p>Changes to both the <code>transform</code> and <code>opacity</code> properties are hardware accelerated, and we can achieve better performance when sticking to only changing these properties in animations.</p>
+    </div>
+  </div>
+</div>
+
+</footer>
+  
+</body>
+</html>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<link rel="preconnect" href="https://srv.carbonads.net/" crossorigin>
+<link rel="preconnect" href="https://cdn4.buysellads.net/" crossorigin>
+
+	  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <meta property="og:title" content="Breaking to a new row with flexbox" />
+  <meta property="og:description" content="You can break to a new flexbox row or column without setting the size of an item: add a collapsed flex item between two flex items" />
+  <meta property="og:url" content="https://tobiasahlin.com/blog/flexbox-break-to-new-row/" />
+  <meta property="og:type" content="blog" />
+  <meta property="og:image" content="https://tobiasahlin.com/static/-social/og_blog-flexbox-break-to-new-row.jpg" />
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tobiasahlin" />
+  <meta name="twitter:creator" content="@tobiasahlin" />
+
+  <meta name="description" content="You can break to a new flexbox row or column without setting the size of an item: add a collapsed flex item between two flex items" />
+  <meta name="keywords" content=", tobias ahlin, github, spotify, hyper island" />
+
+	<title>
+    Breaking to a new row with flexbox | Tobias Ahlin
+  </title>
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/rss+xml"  href="../../feed.xml" title="Blog RSS Feed">
+  <link rel="apple-touch-icon" href="../../images/touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../../images/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../../images/touch-icon-iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../../images/touch-icon-ipad-retina.png">
+  <link rel="stylesheet" href="../../css/site.css">
+
+
+  <script src="../../js/anime.min.js"></script>
+	
+<script type="text/javascript" src="../../js/app.js@v=1"></script>
+
+<script defer type="text/javascript" src="../../js/post.js"></script>
+
+
+<script>
+	// Clear localStorage if number of posts have changed
+	app.search.postCountKey = "postCount";
+	var postCountCached = parseInt(localStorage.getItem(app.search.postCountKey));
+	var postCount = 126;
+
+	// If number of posts have changed, clear cache
+	if (postCount != postCountCached) { localStorage.clear(); }
+	localStorage.setItem(app.search.postCountKey, 126); 
+</script>
+</head>
+<body class="layout-post">
+
+<div class="site-header site-header-post">
+  <canvas class="site-nav-canvas"></canvas>
+<button class="js-menu menu button-clear " aria-label="Site navigation">
+  <span class="menu-icon-line-1 menu-icon-line"></span>
+  <span class="menu-icon-line-2 menu-icon-line"></span>
+  <span class="menu-icon-line-3 menu-icon-line"></span>
+</button>
+
+<div class="site-nav-overlay js-nav">
+  <div class="nav-content">
+    <div class="js-nav-header nav-header">
+      <span class="nav-header-text">Tobias Ahlin</span>
+      <div class="nav-header-line js-nav-header-line"></div>
+    </div>
+
+    <ul class="nav-categories">
+      <li class="nav-category js-nav-animate"><a href="../../index.html" class="nav-link">Overview</a></li>
+      <li class="nav-category js-nav-animate"><a href="../index.html" class="nav-link">Blog</a></li>
+      <li class="nav-category js-nav-animate"><a href="../tutorials/index.html" class="nav-link">Tutorials</a></li>
+      <li class="nav-category js-nav-animate"><a href="../../speaking/index.html" class="nav-link">Speaking</a></li>
+    </ul>
+
+    <div class="nav-sublinks js-nav-animate">
+      <div class="js-nav-animate">
+      <a class="nav-link nav-sublink" href="../../moving-letters/index.html">Moving Letters</a>
+      <a class="nav-link nav-sublink" href="../../typesource.1.html">TypeSource</a>
+      <a class="nav-link nav-sublink" href="../../spinkit/index.html">SpinKit</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <h1 class="site-name site-name-post">
+  <a class="siteLogoLink  site-name-link-parent" href="../../index.html" aria-label="Start page">
+  <svg  class="siteHead-logoMark"  width="1022" height="482" viewBox="0 0 1022 482" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M634.184 481.999L567.587 379.929L500.99 481.999H247.355L573.255 0L886.402 481.999H634.184ZM198.374 198.47H0V0H518.605L198.374 472.076V198.47Z" />
+<path d="M626.67 0C626.67 0 848.8 0 962.621 0C978.369 0 993.472 6.26031 1004.61 17.3996C1015.74 28.5423 1022 43.6521 1022 59.4083C1022 152.061 1022 329.939 1022 422.592C1022 438.348 1015.74 453.458 1004.61 464.6C993.472 475.74 978.369 482 962.621 482H939.816L626.67 0Z" />
+</svg>
+</a>
+  
+    <a class="site-name-link" href="../index.html">Blog</a>
+  
+</h1>
+  <button class="site-search js-search button-clear" aria-label="Search site">
+  <span class="site-search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 38.96 41.469">
+  <circle class="site-search-icon-circle" fill="none" stroke-width="4px" cx="16.465" cy="16.484" r="14.465"/>
+  <path class="site-search-icon-line" d="M2791.72,95.441l3.03-3.034,13.1,13.968-3.03,3.034Z" transform="translate(-2768.88 -67.938)"/>
+</svg>
+</span>
+  <span class="site-search-close-icon">
+    <span class="site-search-close-icon-line site-search-close-icon-line-1"></span>
+    <span class="site-search-close-icon-line site-search-close-icon-line-2"></span>
+  </span>
+</button>
+
+<div class="js-search-overlay site-nav-overlay-search">
+  <div class="site-search-content">
+    <input placeholder="Search…" type="text" class="js-search-input siteSearchInput">
+    <div class="site-search-content-results js-site-search-content-results">
+      <div class="site-search-content-results-list"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="single-post">
+	<div class="single-post-head" style="background-color: #7290a4">
+			<h1 class="post-header" >Breaking to a new row with flexbox</h1>
+
+			<div class="carbon-ad-container">
+<script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=tobiasahlincom" id="_carbonads_js"></script>
+</div>
+	</div>
+	
+	<div class="article article-single">
+		<div class="blog-banner">
+  <div class="blog-banner-content">
+      <div class="flexbox-break-banner-logo">
+        <div class="flexbox-break-box flexbox-break-box-1" style="transform: translateX(-60px) scaleY(0.36) scaleX(0.12);"></div>
+        <div class="flexbox-break-box flexbox-break-box-2" style="transform: translateX(-60px) scaleY(0.36) scaleX(0.12);"></div>
+        <div class="flexbox-break-box flexbox-break-box-3" style="transform: translateX(-60px) scaleY(0.36) scaleX(0.12);"></div>
+        <div class="flexbox-break-box flexbox-break-box-4" style="transform: translateX(-60px) scaleY(0.36) scaleX(0.12);"></div>
+        <div class="flexbox-break-box flexbox-break-box-5" style="transform: translateX(-60px) scaleY(0.36) scaleX(0.12);"></div>
+        <div class="flexbox-break-box flexbox-break-box-6" style="transform: translateX(-60px) scaleY(0.36) scaleX(0.12);"></div>
+        <div class="flexbox-break-box flexbox-break-box-7" style="transform: translateX(-60px) scaleY(0.36) scaleX(0.12);"></div>
+      </div>
+  </div>
+</div>
+<style>
+.flexbox-break-banner-logo {
+  margin-top: 20px;
+  width: 100px;
+  height: 30px;
+  display: inline-block;
+  position: relative;
+}
+
+.flexbox-break-box {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 50% 0;
+}
+</style>
+
+<script>
+var postMasonryBoxTimeline = anime.timeline({ loop: true });
+postMasonryBoxTimeline
+  .add({ /* just one line */ 
+    targets: '.flexbox-break-box',
+    translateX: function(el, i) { return -60+i*20 },
+    scaleY: 0.36,
+    scaleX: 0.12,
+    delay: function(el, i) { return i*70 },
+    easing: "easeOutExpo",
+    duration: 600
+  })
+  .add({
+    targets: '.flexbox-break-box',
+    translateY: function(el, i) { 
+      if (i > 3) return 20;
+      if (i == 3) return 0;
+      return -20;
+    },
+    translateX: function(el, i) {
+      if (i == 0 || i == 4) return -27;
+      if (i == 1 || i == 3 || i == 5) return 0;
+      return 27;
+    },
+    scaleY: 0.36,
+    scaleX: function(el, i) { return i == 3 ? 0.72 : 0.17 },
+    easing: "easeOutExpo",
+    delay: function(el, i) { return 800 + i*20 },
+    duration: 700
+  })
+  .add({
+    targets: '.flexbox-break-box',
+    translateY: 0,
+    translateX: 0,
+    scaleY: 0.36,
+    scaleX: 0.12,
+    easing: "easeInExpo",
+    delay: function(el, i) { return 800 + i*70 },
+    duration: 600
+  })
+  .add({
+    targets: '.flexbox-break-box',
+    translateX: -60,
+    scaleY: 0.36,
+    scaleX: 0.12,
+    duration: 800
+  });
+app.animations.track(postMasonryBoxTimeline, document.querySelector(".flexbox-break-banner-logo"));
+</script>
+
+<!--more-->
+
+<p>Here’s the challenge: if you want to create a flexbox layout with several rows of items, how do you control which item ends up in which row? Presume you want to create a layout that looks something like this, with three stacked items and alternating full-width items:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows">
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break flex-rows-break-invisible"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break flex-rows-break-invisible"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break flex-rows-break-invisible"></div>
+    <div class="flex-rows-child"></div>
+  </div>
+</div>
+
+<p>A common way of controlling the positioning and size of flex items is to use <code class="language-plaintext highlighter-rouge">width</code> or <code class="language-plaintext highlighter-rouge">flex-basis</code>; if we set the fourth item to have a width of 100% it’ll be positioned on its own row. But what if we don’t want to or can’t set the width of individual items, do we really need to? Or is there a way of just telling flexbox to line break at certain points?</p>
+
+<p>There’s no property that we can set on a flex item to make it break to a new row, but we can insert a collapsed row (you can think of it as a <code class="language-plaintext highlighter-rouge">&lt;br&gt;</code>) between two flex items two achieve something similar. In a gist:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* Inserting this collapsed row between two flex items will make 
+ * the flex item that comes after it break to a new row */</span>
+<span class="nc">.break</span> <span class="p">{</span>
+  <span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"break"</span><span class="nt">&gt;&lt;/div&gt;</span> <span class="c">&lt;!-- break --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Let’s walk through some scenarios when you might want to use this, and look at some interesting layout techniques that it enables us to use.</p>
+
+<p>Note that all of the code examples below requires and assumes that you have a flex container with <code class="language-plaintext highlighter-rouge">display: flex</code> and <code class="language-plaintext highlighter-rouge">flex-wrap: wrap</code> and that the flex items are added to that container:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">flex-wrap</span><span class="p">:</span> <span class="n">wrap</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  ...
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h2 id="inserting-a-line-breaking-flex-item">Inserting a line-breaking flex item</h2>
+
+<p>Using an element to break to a new flex row comes with an interesting effect: we can skip specifying the width of any item in our flex layout and rely completely on the line breaks to define the flow of our grid.</p>
+
+<p>Let’s start with a simple example. Say that we have two items shown side by side (these are set to grow with <code class="language-plaintext highlighter-rouge">flex-grow: 1</code>, and they have no defined <code class="language-plaintext highlighter-rouge">width</code> or <code class="language-plaintext highlighter-rouge">flex-basis</code>):</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows">
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+  </div>
+</div>
+
+<p>We can insert a line breaking element between the items to make them both take up 100% of the available space:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"break"</span><span class="nt">&gt;&lt;/div&gt;</span> <span class="c">&lt;!-- break to a new row --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>This produces a layout with two vertically stacked full-width items (I’ve added a border to the <code class="language-plaintext highlighter-rouge">.break</code> element to illustrate its position and behavior):</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows">
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break"></div>
+    <div class="flex-rows-child"></div>
+  </div>
+</div>
+
+<p>How does this work? Since we’ve said that <code class="language-plaintext highlighter-rouge">.break</code> should take up 100% of the width of the container (because we set <code class="language-plaintext highlighter-rouge">flex-basis: 100%</code>), the breaking flex item needs to sit on its own row to accomplish that. It can’t share a row with the first item so it will break to a new row, which will leave the first item alone on one row. The first item will then grow to fill the remaining space (since we set <code class="language-plaintext highlighter-rouge">flex-grow: 1</code>). The same logic applies to the second item.</p>
+
+<p>We can use this technique to compose the layout at the top of the post by breaking before and after every fourth item:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"break"</span><span class="nt">&gt;&lt;/div&gt;</span> <span class="c">&lt;!-- break --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"break"</span><span class="nt">&gt;&lt;/div&gt;</span> <span class="c">&lt;!-- break --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>This will produce the layout at the top of the blog post. Essentially an item won’t break to a new row unless we insert the line-breaking element:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows">
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+  </div>
+</div>
+
+<p>Again, we didn’t need to specify the width on any of those items. The same technique will work for columns if we have a flex container with <code class="language-plaintext highlighter-rouge">flex-direction: column</code>, and set the <code class="language-plaintext highlighter-rouge">width</code> (rather than <code class="language-plaintext highlighter-rouge">height</code>) to <code class="language-plaintext highlighter-rouge">0</code> for our breaking element:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* Use a collapsed column to break to a new column */</span>
+<span class="nc">.break-column</span> <span class="p">{</span>
+  <span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows flex-rows-columns">
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+  </div>
+</div>
+
+<p>This approach of using line breaking elements to define a layout definitely adds some bloat and noise to our HTML, but it can be a powerful tool when used in the right way. <a href="../masonry-with-css/index.html">We can, for example, use it to build a masonry layout with CSS only</a>, and position the breaks dynamically with the <code class="language-plaintext highlighter-rouge">order</code> property. We can also break to a new row without having to modify the width of any content item, and we can rely solely on <code class="language-plaintext highlighter-rouge">flex-grow</code> to distribute space in a grid layout.</p>
+
+<p>Suppose that we’re looking to create this layout:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows">
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child flex-rows-child-wide"></div>
+    <div class="flex-rows-child"></div>
+  </div>
+</div>
+
+<p>And assume that we want to do so by setting different values of <code class="language-plaintext highlighter-rouge">flex-grow</code> to distribute the space (rather than using <code class="language-plaintext highlighter-rouge">flex-basis</code> or <code class="language-plaintext highlighter-rouge">width</code>, which you’d have to recalculate as soon as you added or removed items):</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span> <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item-wide</span> <span class="p">{</span> <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">3</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item-wide"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>If we then want to add another row of items below that row:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows">
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child flex-rows-child-wide"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break flex-rows-break-invisible"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+  </div>
+</div>
+
+<p>We wouldn’t be able to do so without resorting to setting <code class="language-plaintext highlighter-rouge">flex-basis</code> or <code class="language-plaintext highlighter-rouge">width</code> on at least some of the items (or creating a nested flexbox layout with one flex item for every row). If all of the items just have different values of <code class="language-plaintext highlighter-rouge">flex-grow</code> nothing would make them break to a new row, they’d all just squeeze in on one row together:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows">
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child flex-rows-child-wide"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+  </div>
+</div>
+
+<p>Cozy, but not what we’re after. If we insert a breaking element, however, we can construct this layout by distributing all space with <code class="language-plaintext highlighter-rouge">flex-grow</code>:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span> <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item-wide</span> <span class="p">{</span> <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">3</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item-wide"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"break"</span><span class="nt">&gt;&lt;/div&gt;</span> <span class="c">&lt;!-- break --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Yielding the desired layout, with all sizes defined proportionally through <code class="language-plaintext highlighter-rouge">flex-grow</code>:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows">
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child flex-rows-child-wide"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+  </div>
+</div>
+
+<p>And if there’s a scenario when we need five items in the first row we don’t have to change any of the CSS to make that work, we can just add those items before the line break:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item-wide"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"break"</span><span class="nt">&gt;&lt;/div&gt;</span> <span class="c">&lt;!-- break --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows">
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child flex-rows-child-wide"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-break flex-rows-break-invisible"></div>
+    <div class="flex-rows-child"></div>
+    <div class="flex-rows-child"></div>
+  </div>
+</div>
+
+<p>All that you need to add to your CSS to use line-breaking elements are these two classes (the only difference between the two classes is that <code class="language-plaintext highlighter-rouge">width</code> (and not <code class="language-plaintext highlighter-rouge">height</code>) needs to be set to <code class="language-plaintext highlighter-rouge">0</code> for the element to collapse when used in a column layout):</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* Inserting a collapsed row between two flex items will make 
+ * the flex item that comes after it break to a new row */</span>
+<span class="nc">.break</span> <span class="p">{</span>
+  <span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Use a collapsed column to break to a new column */</span>
+<span class="nc">.break-column</span> <span class="p">{</span>
+  <span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>You could certainly achieve the same effect or similar effects by nesting flexboxes and having one flex item for every row, and in many cases just utilizing <code class="language-plaintext highlighter-rouge">flex-basis</code>, <code class="language-plaintext highlighter-rouge">width</code>, or the content within the flex items is probably the preferred way of controlling the flow of items in a flexbox layout. But inserting line-breaking flex items is approachable and easy to grok, it works, and the technique comes with some unique characteristics that may come in handy.</p>
+
+<style>
+
+.flex-rows {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 20px 5px 20px;
+}
+
+.flex-rows-columns {
+  flex-direction: column;
+  height: 300px;
+}
+
+.flex-rows-child {
+  border-radius: 3px;
+  background-color: #A2CBFA;
+  border: 1px solid #4390E1;
+  box-sizing: border-box;
+  box-shadow: 0 2px 2px rgba(0,90,250,0.05),
+    0 4px 4px rgba(0,90,250,0.05),
+    0 8px 8px rgba(0,90,250,0.05),
+    0 16px 16px rgba(0,90,250,0.05);
+    height: 60px;
+  flex-grow: 1;
+  margin-bottom: 2%;
+}
+
+.flex-rows-child-wide { flex-grow: 3; }
+
+.flex-rows-child + .flex-rows-child { margin-left: 2%; }
+
+.flex-rows-columns .flex-rows-child {
+  height: auto;
+  width: 30%;
+  margin-left: 0;
+}
+
+.flex-rows-break {
+  flex-basis: 100%;
+  height: 0;
+  margin: 0;
+  border: 1px solid #ddd;
+  margin-bottom: 2%;
+}
+
+.flex-rows-break-invisible { 
+  border: 0; 
+  margin: 0;
+}
+
+.flex-rows-columns .flex-rows-break {
+  width: 0;
+  height: auto;
+}
+</style>
+
+
+	</div>
+</div>
+
+<div class="section section-dense">
+  <h2 class="section-header section-header-small">Published in:</h2>
+  <div class="section-content post-categories-content" style="background-color: #7290a4">
+    <div class="post-categories-links" >
+      
+        <a class="post-categories-link" href="../css/index.html">css</a> <span class="post-categories-link-divider">/</span>
+      
+        <a class="post-categories-link" href="../tutorial/index.html">tutorial</a>
+      
+    </div>
+    <span class="section-header section-header-small post-categories-date">29/04/2019</span>
+  </div>
+</div>
+<div class="newsletter-signup section section-dense">
+
+  <h2 class="section-header section-header-subscribe">Subscribe.</h2>
+  <div id="mc_embed_signup" class="newsletter-signup-container">
+    <div class="section-content newsletter-content newsletter-content-left">
+      <h3 class="grid-item-header grid-item-header-left">Get new posts delivered to your inbox</h3>
+      <div class="grid-item-divider grid-item-divider-left"></div>
+      <p class="grid-item-text grid-item-text-left">They're not frequent, promise ✌️ you can also <a href="../../feed.xml">subscribe to the RSS feed</a>.</p>
+    </div>
+
+    <div class="section-content newsletter-content newsletter-content-right">
+      <form action="https://tobiasahlin.us6.list-manage.com/subscribe/post?u=b53336ca4dca0dadf0c41405a&amp;id=a3482fb718" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+          <div class="mc-field-group">
+            <label for="mce-EMAIL">email@example.com</label>
+            <input type="email" placeholder="email@example.com" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+            <div class="newsletter-input-border"></div>
+          </div>
+          <div id="mce-responses">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_b53336ca4dca0dadf0c41405a_a3482fb718" tabindex="-1" value=""></div>
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="newsletter-signup-button">
+        </div>
+      </form>
+    </div>
+
+    
+  </div>
+</div>
+<div class="section contact-card">
+  <h2 class="section-header">Say hi.</h2>
+
+  <div class="contact-info">
+    <a class="grid-item-header grid-item-header-left" href="mailto:hello@tobiasahlin.com">hello@<br>tobiasahlin.com</a>
+
+    <div class="grid-item-divider grid-item-divider-left"></div>
+    <p class="grid-item-text grid-item-text-left">I love to design and make things. I speak, teach, and consult at tech companies and startups, e.g. Spotify, Minecraft, GitHub, and Hyper Island. <a href="https://twitter.com/tobiasahlin">Say hi!</a><br><br>
+
+    Tobias Ahlin Bjerrome <br>Stockholm, Sweden</p>
+
+    <div class="contact-links">
+      <a class="contact-link" href="https://github.com/tobiasahlin" aria-label="View my GitHub profile"><span class="contact-icon"><svg class="case-item-icon icon-github" fill="#fff" xmlns="http://www.w3.org/2000/svg" width="62" height="60" viewBox="0 0 62 60"><path d="M31 0a30.7 30.7 0 0 0-9.8 59.9c1.55.3 2.116-.6 2.116-1.4s-.026-2.7-.042-5.3c-8.622 1.9-10.44-4.1-10.44-4.1-1.414-3.5-3.448-4.5-3.448-4.5-2.815-1.9.213-1.9.213-1.9a6.74 6.74 0 0 1 4.746 3.2c2.766 4.7 7.254 3.3 9.023 2.6a6.3 6.3 0 0 1 1.966-4.1c-6.88-.8-14.12-3.5-14.12-15.2a11.964 11.964 0 0 1 3.193-8.3 10.9 10.9 0 0 1 .3-8.1s2.6-.9 8.525 3.1a30.617 30.617 0 0 1 15.522 0c5.92-4 8.517-3.1 8.517-3.1a10.886 10.886 0 0 1 .308 8.1 11.946 11.946 0 0 1 3.186 8.3c0 11.8-7.248 14.4-14.155 15.1a7.52 7.52 0 0 1 2.1 5.7c0 4.1-.04 7.5-.04 8.5 0 .8.56 1.7 2.13 1.4A30.708 30.708 0 0 0 31 0"/></svg></span></a>
+      <a class="contact-link contact-link-twitter" href="https://twitter.com/tobiasahlin" aria-label="View my Twitter profile"><svg class="contact-icon twitter-icon-svg" fill="#fff" xmlns="http://www.w3.org/2000/svg" width="60" height="49" viewBox="0 0 60 49"><path d="M60 5.8a32.794 32.794 0 0 1-7.02 2A12.573 12.573 0 0 0 58.416.9a22.046 22.046 0 0 1-7.924 3A11.967 11.967 0 0 0 41.435 0 12.256 12.256 0 0 0 29.21 12.4a11.72 11.72 0 0 0 .225 2.8A34.736 34.736 0 0 1 4.075 2.1 11.406 11.406 0 0 0 2.49 8.3a12.24 12.24 0 0 0 5.436 10.3 12.607 12.607 0 0 1-5.66-1.6v.3a12.426 12.426 0 0 0 9.96 12.1 11.632 11.632 0 0 1-3.168.5 7.87 7.87 0 0 1-2.265-.2 12.483 12.483 0 0 0 11.548 8.7 23.817 23.817 0 0 1-15.4 5.3A14.578 14.578 0 0 1 0 43.5 35.742 35.742 0 0 0 18.79 49c22.64 0 35.094-19.1 35.094-35.7v-1.6a16.4 16.4 0 0 0 6.113-5.9z"/></svg></a>
+    </div>
+
+    <div class="contact-picture">
+      <img src="../../images/profile.jpg" class="contact-picture-img" width="1160" height="1160" loading="lazy">
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<link rel="preconnect" href="https://srv.carbonads.net/" crossorigin>
+<link rel="preconnect" href="https://cdn4.buysellads.net/" crossorigin>
+
+	  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <meta property="og:title" content="10 Chart.js example charts to get you started" />
+  <meta property="og:description" content="A list of 10 graphs (bar chart, pie, line, etc.) with data set up to render  charts that you can copy and paste into your projects" />
+  <meta property="og:url" content="https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/" />
+  <meta property="og:type" content="blog" />
+  <meta property="og:image" content="https://tobiasahlin.com/static/-social/og_blog-chartjs-charts-to-get-you-started.jpg" />
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tobiasahlin" />
+  <meta name="twitter:creator" content="@tobiasahlin" />
+
+  <meta name="description" content="A list of 10 graphs (bar chart, pie, line, etc.) with data set up to render  charts that you can copy and paste into your projects" />
+  <meta name="keywords" content=", tobias ahlin, github, spotify, hyper island" />
+
+	<title>
+    10 Chart.js example charts to get you started | Tobias Ahlin
+  </title>
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/rss+xml"  href="../../feed.xml" title="Blog RSS Feed">
+  <link rel="apple-touch-icon" href="../../images/touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../../images/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../../images/touch-icon-iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../../images/touch-icon-ipad-retina.png">
+  <link rel="stylesheet" href="../../css/site.css">
+
+
+  <script src="../../js/anime.min.js"></script>
+	
+<script type="text/javascript" src="../../js/app.js@v=1"></script>
+
+<script defer type="text/javascript" src="../../js/post.js"></script>
+
+
+<script>
+	// Clear localStorage if number of posts have changed
+	app.search.postCountKey = "postCount";
+	var postCountCached = parseInt(localStorage.getItem(app.search.postCountKey));
+	var postCount = 126;
+
+	// If number of posts have changed, clear cache
+	if (postCount != postCountCached) { localStorage.clear(); }
+	localStorage.setItem(app.search.postCountKey, 126); 
+</script>
+</head>
+<body class="layout-post">
+
+<div class="site-header site-header-post">
+  <canvas class="site-nav-canvas"></canvas>
+<button class="js-menu menu button-clear " aria-label="Site navigation">
+  <span class="menu-icon-line-1 menu-icon-line"></span>
+  <span class="menu-icon-line-2 menu-icon-line"></span>
+  <span class="menu-icon-line-3 menu-icon-line"></span>
+</button>
+
+<div class="site-nav-overlay js-nav">
+  <div class="nav-content">
+    <div class="js-nav-header nav-header">
+      <span class="nav-header-text">Tobias Ahlin</span>
+      <div class="nav-header-line js-nav-header-line"></div>
+    </div>
+
+    <ul class="nav-categories">
+      <li class="nav-category js-nav-animate"><a href="../../index.html" class="nav-link">Overview</a></li>
+      <li class="nav-category js-nav-animate"><a href="../index.html" class="nav-link">Blog</a></li>
+      <li class="nav-category js-nav-animate"><a href="../tutorials/index.html" class="nav-link">Tutorials</a></li>
+      <li class="nav-category js-nav-animate"><a href="../../speaking/index.html" class="nav-link">Speaking</a></li>
+    </ul>
+
+    <div class="nav-sublinks js-nav-animate">
+      <div class="js-nav-animate">
+      <a class="nav-link nav-sublink" href="../../moving-letters/index.html">Moving Letters</a>
+      <a class="nav-link nav-sublink" href="../../typesource.1.html">TypeSource</a>
+      <a class="nav-link nav-sublink" href="../../spinkit/index.html">SpinKit</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <h1 class="site-name site-name-post">
+  <a class="siteLogoLink  site-name-link-parent" href="../../index.html" aria-label="Start page">
+  <svg  class="siteHead-logoMark"  width="1022" height="482" viewBox="0 0 1022 482" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M634.184 481.999L567.587 379.929L500.99 481.999H247.355L573.255 0L886.402 481.999H634.184ZM198.374 198.47H0V0H518.605L198.374 472.076V198.47Z" />
+<path d="M626.67 0C626.67 0 848.8 0 962.621 0C978.369 0 993.472 6.26031 1004.61 17.3996C1015.74 28.5423 1022 43.6521 1022 59.4083C1022 152.061 1022 329.939 1022 422.592C1022 438.348 1015.74 453.458 1004.61 464.6C993.472 475.74 978.369 482 962.621 482H939.816L626.67 0Z" />
+</svg>
+</a>
+  
+    <a class="site-name-link" href="../index.html">Blog</a>
+  
+</h1>
+  <button class="site-search js-search button-clear" aria-label="Search site">
+  <span class="site-search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 38.96 41.469">
+  <circle class="site-search-icon-circle" fill="none" stroke-width="4px" cx="16.465" cy="16.484" r="14.465"/>
+  <path class="site-search-icon-line" d="M2791.72,95.441l3.03-3.034,13.1,13.968-3.03,3.034Z" transform="translate(-2768.88 -67.938)"/>
+</svg>
+</span>
+  <span class="site-search-close-icon">
+    <span class="site-search-close-icon-line site-search-close-icon-line-1"></span>
+    <span class="site-search-close-icon-line site-search-close-icon-line-2"></span>
+  </span>
+</button>
+
+<div class="js-search-overlay site-nav-overlay-search">
+  <div class="site-search-content">
+    <input placeholder="Search…" type="text" class="js-search-input siteSearchInput">
+    <div class="site-search-content-results js-site-search-content-results">
+      <div class="site-search-content-results-list"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="single-post">
+	<div class="single-post-head" style="background-color: #e8c3b9">
+			<h1 class="post-header" >10 Chart.js example charts to get you started</h1>
+
+			<div class="carbon-ad-container">
+<script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=tobiasahlincom" id="_carbonads_js"></script>
+</div>
+	</div>
+	
+	<div class="article article-single">
+		<div class="blog-banner">
+  <div class="blog-banner-content">
+      <img class="chartjs-banner-10x" src="../../static/chartjs-10x.png" alt="10 Graph.js example graphs" height="142" width="160" />
+  </div>
+  <style>
+
+  @media all and (max-width: 900px) {
+    .chartjs-banner-10x {
+      width: 120px;
+      height: 106px;
+    }
+  }
+  </style>
+</div>
+
+<!--more-->
+
+<p><a href="http://www.chartjs.org/">Chart.js</a> is a powerful data visualization library, but I know from experience that it can be tricky to just get started and get a graph to show up. There are all sorts of things that can wrong, and I often just want to have <em>something</em> working so I can start tweaking it.</p>
+
+<p>This is a list of 10 working graphs (bar chart, pie chart, line chart, etc.) with colors and data set up to render decent looking charts that you can copy and paste into your own projects, and quickly get going with customizing and fine-tuning to make them fit your style and purpose.</p>
+
+<p>To use these examples, make sure to also include Chart.js:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>These are the graphs that we’ll go through (click to get to the code):</p>
+
+<div class="post-jumper post-jumper-5">
+  <a href="index.html#1-bar-chart" class="post-jumper-item">
+    <img src="../../static/graph-icons/bars.png" alt="Bar chart" width="95" height="60" />
+    <span class="post-jumper-item-title">Bar chart</span>
+  </a>  
+  <a href="index.html#2-line-chart" class="post-jumper-item">
+    <img src="../../static/graph-icons/line.png" alt="Line chart" width="95" height="60" />
+    <span class="post-jumper-item-title">Line chart</span>
+  </a>
+  <a href="index.html#3-pie-chart" class="post-jumper-item">
+    <img src="../../static/graph-icons/pie.png" alt="Pie chart" width="95" height="60" />
+    <span class="post-jumper-item-title">Pie chart</span>
+  </a>
+  <a href="index.html#4-radar-chart" class="post-jumper-item">
+    <img src="../../static/graph-icons/radar.png" alt="Radar chart" width="95" height="60" />
+    <span class="post-jumper-item-title">Radar chart</span>
+  </a>
+  <a href="index.html#5-polar-area-chart" class="post-jumper-item">
+    <img src="../../static/graph-icons/polar.png" alt="Polar area chart" width="95" height="60" />
+    <span class="post-jumper-item-title">Polar area</span>
+  </a>
+  <a href="index.html#6-doughnut-chart" class="post-jumper-item">
+    <img src="../../static/graph-icons/doughnut.png" alt="Doughnut chart" width="95" height="60" />
+    <span class="post-jumper-item-title">Doughnut chart</span>
+  </a>
+  <a href="index.html#7-horizontal-bar-chart" class="post-jumper-item">
+    <img src="../../static/graph-icons/horizontal.png" alt="Horizontal bar chart" width="95" height="60" />
+    <span class="post-jumper-item-title">Horizontal bars</span>
+  </a>
+  <a href="index.html#8-grouped-bar-chart" class="post-jumper-item">
+    <img src="../../static/graph-icons/grouped.png" alt="Grouped bar chart" width="95" height="60" />
+    <span class="post-jumper-item-title">Grouped bars</span>
+  </a>
+  <a href="index.html#9-mixed-chart" class="post-jumper-item">
+    <img src="../../static/graph-icons/mixed.png" alt="Mixed chart" width="95" height="60" />
+    <span class="post-jumper-item-title">Mixed charts</span>
+  </a>
+  <a href="index.html#10-bubble-chart" class="post-jumper-item">
+    <img src="../../static/graph-icons/bubbles.png" alt="Bubble chart" width="95" height="60" />
+    <span class="post-jumper-item-title">Bubble chart</span>
+  </a>
+</div>
+
+<h2 id="1-bar-chart">1. Bar chart</h2>
+
+<p class="post-content-wrapper">
+  <canvas id="post-example-bar-chart" width="800" height="450"></canvas>
+</p>
+
+<p>Bar charts are created by setting <code class="language-plaintext highlighter-rouge">type</code> to <code class="language-plaintext highlighter-rouge">bar</code> (to flip the direction of the bars, <a href="index.html#horizontal-bar-chart">set <code class="language-plaintext highlighter-rouge">type</code> to <code class="language-plaintext highlighter-rouge">horizontalBar</code></a>). The colors of the bars are set by passing one color to <code class="language-plaintext highlighter-rouge">backgroundColor</code> (all bars will have the same color), or an array of colors.</p>
+
+<p>If you’re passing an array (like in the example below), the colors are assigned to the label and number that share the same index in their respective arrays. I.e., below, “Africa” being the first label, will be set to <code class="language-plaintext highlighter-rouge">#3e95cd</code> (the first color), and <code class="language-plaintext highlighter-rouge">2478</code> (the first number).</p>
+
+<h4 id="bar-chart-html--javascript">Bar chart HTML &amp; JavaScript</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"bar-chart"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"450"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Bar chart</span>
+<span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">bar-chart</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bar</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">labels</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Asia</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Europe</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Latin America</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">North America</span><span class="dl">"</span><span class="p">],</span>
+      <span class="na">datasets</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Population (millions)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">#3e95cd</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">#8e5ea2</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#3cba9f</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#e8c3b9</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#c45850</span><span class="dl">"</span><span class="p">],</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">2478</span><span class="p">,</span><span class="mi">5267</span><span class="p">,</span><span class="mi">734</span><span class="p">,</span><span class="mi">784</span><span class="p">,</span><span class="mi">433</span><span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">legend</span><span class="p">:</span> <span class="p">{</span> <span class="na">display</span><span class="p">:</span> <span class="kc">false</span> <span class="p">},</span>
+      <span class="na">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Predicted world population (millions) in 2050</span><span class="dl">'</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="2-line-chart">2. Line chart</h2>
+
+<p class="post-content-wrapper">
+  <canvas id="post-example-line-chart" width="800" height="450"></canvas>
+</p>
+
+<p>Line charts are created by setting <code class="language-plaintext highlighter-rouge">type</code> to <code class="language-plaintext highlighter-rouge">line</code>. By default, lines come with a dark transparent fill, covering the area between the line and x-axis. I think these fills tend to obfuscate other lines, so I’ve removed them on every dataset in this example (<code class="language-plaintext highlighter-rouge">fill: false</code>).</p>
+
+<p>If you want to remove fills for all your line graphs, a more efficiant way of achieving the same effect is to change the global default for fills: <code class="language-plaintext highlighter-rouge">Chart.defaults.global.elements.line.fill = false;</code>.</p>
+
+<h4 id="line-chart-html--javascript">Line chart: HTML &amp; JavaScript</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"line-chart"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"450"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">line-chart</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+  <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">line</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">labels</span><span class="p">:</span> <span class="p">[</span><span class="mi">1500</span><span class="p">,</span><span class="mi">1600</span><span class="p">,</span><span class="mi">1700</span><span class="p">,</span><span class="mi">1750</span><span class="p">,</span><span class="mi">1800</span><span class="p">,</span><span class="mi">1850</span><span class="p">,</span><span class="mi">1900</span><span class="p">,</span><span class="mi">1950</span><span class="p">,</span><span class="mi">1999</span><span class="p">,</span><span class="mi">2050</span><span class="p">],</span>
+    <span class="na">datasets</span><span class="p">:</span> <span class="p">[{</span> 
+        <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">86</span><span class="p">,</span><span class="mi">114</span><span class="p">,</span><span class="mi">106</span><span class="p">,</span><span class="mi">106</span><span class="p">,</span><span class="mi">107</span><span class="p">,</span><span class="mi">111</span><span class="p">,</span><span class="mi">133</span><span class="p">,</span><span class="mi">221</span><span class="p">,</span><span class="mi">783</span><span class="p">,</span><span class="mi">2478</span><span class="p">],</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#3e95cd</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">fill</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span> <span class="p">{</span> 
+        <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">282</span><span class="p">,</span><span class="mi">350</span><span class="p">,</span><span class="mi">411</span><span class="p">,</span><span class="mi">502</span><span class="p">,</span><span class="mi">635</span><span class="p">,</span><span class="mi">809</span><span class="p">,</span><span class="mi">947</span><span class="p">,</span><span class="mi">1402</span><span class="p">,</span><span class="mi">3700</span><span class="p">,</span><span class="mi">5267</span><span class="p">],</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Asia</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#8e5ea2</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">fill</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span> <span class="p">{</span> 
+        <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">168</span><span class="p">,</span><span class="mi">170</span><span class="p">,</span><span class="mi">178</span><span class="p">,</span><span class="mi">190</span><span class="p">,</span><span class="mi">203</span><span class="p">,</span><span class="mi">276</span><span class="p">,</span><span class="mi">408</span><span class="p">,</span><span class="mi">547</span><span class="p">,</span><span class="mi">675</span><span class="p">,</span><span class="mi">734</span><span class="p">],</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Europe</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#3cba9f</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">fill</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span> <span class="p">{</span> 
+        <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">74</span><span class="p">,</span><span class="mi">167</span><span class="p">,</span><span class="mi">508</span><span class="p">,</span><span class="mi">784</span><span class="p">],</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Latin America</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#e8c3b9</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">fill</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span> <span class="p">{</span> 
+        <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">82</span><span class="p">,</span><span class="mi">172</span><span class="p">,</span><span class="mi">312</span><span class="p">,</span><span class="mi">433</span><span class="p">],</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">North America</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#c45850</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">fill</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">title</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">World population per region (in millions)</span><span class="dl">'</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="3-pie-chart">3. Pie chart</h2>
+
+<p class="post-content-wrapper">
+  <canvas id="post-example-pie-chart" width="800" height="450"></canvas>
+</p>
+
+<p>Pie charts are created by setting <code class="language-plaintext highlighter-rouge">type</code> to <code class="language-plaintext highlighter-rouge">pie</code>. They are almost identical to <a href="index.html#doughnut-chart">doughnut charts</a>, and will work with the same configurations (part from changing the type).</p>
+
+<h4 id="pie-chart-html--javascript">Pie chart: HTML &amp; JavaScript</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"pie-chart"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"450"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">pie-chart</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pie</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">labels</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Asia</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Europe</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Latin America</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">North America</span><span class="dl">"</span><span class="p">],</span>
+      <span class="na">datasets</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Population (millions)</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">backgroundColor</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">#3e95cd</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">#8e5ea2</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#3cba9f</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#e8c3b9</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#c45850</span><span class="dl">"</span><span class="p">],</span>
+        <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">2478</span><span class="p">,</span><span class="mi">5267</span><span class="p">,</span><span class="mi">734</span><span class="p">,</span><span class="mi">784</span><span class="p">,</span><span class="mi">433</span><span class="p">]</span>
+      <span class="p">}]</span>
+    <span class="p">},</span>
+    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Predicted world population (millions) in 2050</span><span class="dl">'</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="4-radar-chart">4. Radar chart</h2>
+
+<p class="post-content-wrapper">
+  <canvas id="post-example-radar-chart" width="800" height="600"></canvas>
+</p>
+
+<h4 id="radar-chart-html--javascript">Radar chart: HTML &amp; JavaScript</h4>
+
+<p>Radar charts—also known as web charts, spider charts, star charts—are created by setting <code class="language-plaintext highlighter-rouge">type</code> to <code class="language-plaintext highlighter-rouge">radar</code>. Radar charts typically require more vertical space than other graphs to be legible, so you might have to tweak the graph proportions.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"radar-chart"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"600"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">radar-chart</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">radar</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">labels</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Asia</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Europe</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Latin America</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">North America</span><span class="dl">"</span><span class="p">],</span>
+      <span class="na">datasets</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1950</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">fill</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(179,181,198,0.2)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(179,181,198,1)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">pointBorderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#fff</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">pointBackgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(179,181,198,1)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mf">8.77</span><span class="p">,</span><span class="mf">55.61</span><span class="p">,</span><span class="mf">21.69</span><span class="p">,</span><span class="mf">6.62</span><span class="p">,</span><span class="mf">6.82</span><span class="p">]</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2050</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">fill</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(255,99,132,0.2)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(255,99,132,1)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">pointBorderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#fff</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">pointBackgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(255,99,132,1)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">pointBorderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#fff</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mf">25.48</span><span class="p">,</span><span class="mf">54.16</span><span class="p">,</span><span class="mf">7.61</span><span class="p">,</span><span class="mf">8.06</span><span class="p">,</span><span class="mf">4.45</span><span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Distribution in % of world population</span><span class="dl">'</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="5-polar-area-chart">5. Polar area chart</h2>
+
+<p class="post-content-wrapper">
+  <canvas id="post-example-polar-chart" width="800" height="450"></canvas>
+</p>
+
+<p>A polar area chart is created by setting <code class="language-plaintext highlighter-rouge">type</code> to <code class="language-plaintext highlighter-rouge">polarArea</code>. Polar area charts are closely related to pie charts, with the difference that in addition to the angles representing the relative size of the data points, the radius of each element is set in relation to its value.</p>
+
+<h4 id="polar-chart-html--javascript">Polar chart: HTML &amp; JavaScript</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"polar-chart"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"450"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">polar-chart</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">polarArea</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">labels</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Asia</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Europe</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Latin America</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">North America</span><span class="dl">"</span><span class="p">],</span>
+      <span class="na">datasets</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Population (millions)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">#3e95cd</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">#8e5ea2</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#3cba9f</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#e8c3b9</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#c45850</span><span class="dl">"</span><span class="p">],</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">2478</span><span class="p">,</span><span class="mi">5267</span><span class="p">,</span><span class="mi">734</span><span class="p">,</span><span class="mi">784</span><span class="p">,</span><span class="mi">433</span><span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Predicted world population (millions) in 2050</span><span class="dl">'</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="6-doughnut-chart">6. Doughnut chart</h2>
+
+<p class="post-content-wrapper">
+  <canvas id="post-example-doughnut-chart" width="800" height="450"></canvas>
+</p>
+
+<p>Doughnut charts are created by setting <code class="language-plaintext highlighter-rouge">type</code> to <code class="language-plaintext highlighter-rouge">doughnut</code>. They are almost identical to <a href="index.html#pie-chart">pie charts</a>, and will work the same configurations.</p>
+
+<h4 id="doughnut-chart-html--javascript">Doughnut chart: HTML &amp; JavaScript</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"doughnut-chart"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"450"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">doughnut-chart</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">doughnut</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">labels</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Asia</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Europe</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Latin America</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">North America</span><span class="dl">"</span><span class="p">],</span>
+      <span class="na">datasets</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Population (millions)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">#3e95cd</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">#8e5ea2</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#3cba9f</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#e8c3b9</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#c45850</span><span class="dl">"</span><span class="p">],</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">2478</span><span class="p">,</span><span class="mi">5267</span><span class="p">,</span><span class="mi">734</span><span class="p">,</span><span class="mi">784</span><span class="p">,</span><span class="mi">433</span><span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Predicted world population (millions) in 2050</span><span class="dl">'</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="7-horizontal-bar-chart">7. Horizontal bar chart</h2>
+
+<p class="post-content-wrapper">
+  <canvas id="post-example-bar-chart-horizontal" width="800" height="450"></canvas>
+</p>
+
+<p>Horizontal bar charts are created by setting <code class="language-plaintext highlighter-rouge">type</code> to <code class="language-plaintext highlighter-rouge">horizontalBar</code>. They are identical to regular bar charts in every other aspect, and will work with the same configurations.</p>
+
+<h4 id="horizontal-bar-chart-html--javascript">Horizontal bar chart: HTML &amp; JavaScript</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"bar-chart-horizontal"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"450"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">bar-chart-horizontal</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">horizontalBar</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">labels</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Asia</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Europe</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Latin America</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">North America</span><span class="dl">"</span><span class="p">],</span>
+      <span class="na">datasets</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Population (millions)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">#3e95cd</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">#8e5ea2</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#3cba9f</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#e8c3b9</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#c45850</span><span class="dl">"</span><span class="p">],</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">2478</span><span class="p">,</span><span class="mi">5267</span><span class="p">,</span><span class="mi">734</span><span class="p">,</span><span class="mi">784</span><span class="p">,</span><span class="mi">433</span><span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">legend</span><span class="p">:</span> <span class="p">{</span> <span class="na">display</span><span class="p">:</span> <span class="kc">false</span> <span class="p">},</span>
+      <span class="na">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Predicted world population (millions) in 2050</span><span class="dl">'</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="8-grouped-bar-chart">8. Grouped bar chart</h2>
+
+<p class="post-content-wrapper">
+  <canvas id="post-example-bar-chart-grouped" width="800" height="450"></canvas>
+</p>
+
+<p>A grouped bar chart is not a unique chart type per say, but it requires you to setup your data a bit differently compared to the bar charts we’ve seen so far.</p>
+
+<p><code class="language-plaintext highlighter-rouge">type</code> is still set to <code class="language-plaintext highlighter-rouge">bar</code>, but as soon as you pass more than one object to <code class="language-plaintext highlighter-rouge">datasets</code>, Chart.js will create a new group of bars for every object. Setting the color for that group of bars is then done by passing a color to <code class="language-plaintext highlighter-rouge">backgroundColor</code>.</p>
+
+<h4 id="grouped-bar-chart-html--javascript">Grouped bar chart: HTML &amp; JavaScript</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"bar-chart-grouped"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"450"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">bar-chart-grouped</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bar</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">labels</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">1900</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">1950</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">1999</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">2050</span><span class="dl">"</span><span class="p">],</span>
+      <span class="na">datasets</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#3e95cd</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">133</span><span class="p">,</span><span class="mi">221</span><span class="p">,</span><span class="mi">783</span><span class="p">,</span><span class="mi">2478</span><span class="p">]</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Europe</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#8e5ea2</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">408</span><span class="p">,</span><span class="mi">547</span><span class="p">,</span><span class="mi">675</span><span class="p">,</span><span class="mi">734</span><span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Population growth (millions)</span><span class="dl">'</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="9-mixed-chart">9. Mixed chart</h2>
+
+<p class="post-content-wrapper">
+  <canvas id="post-example-mixed-chart" width="800" height="450"></canvas>
+</p>
+
+<p>You can mix several charts and overlay them on top of each other. This is done by setting <code class="language-plaintext highlighter-rouge">type</code> to <code class="language-plaintext highlighter-rouge">bar</code> (<strong>not</strong> to e.g. <code class="language-plaintext highlighter-rouge">mixed</code> or <code class="language-plaintext highlighter-rouge">line</code>—it has to be <code class="language-plaintext highlighter-rouge">bar</code>), and then setting the bar type for every dataset object in your datasets array.</p>
+
+<p>To produce the graph above, for example, we have four data objects: two set to <code class="language-plaintext highlighter-rouge">bar</code>, and two set to <code class="language-plaintext highlighter-rouge">line</code>, while the <code class="language-plaintext highlighter-rouge">type</code> for the Chart object is set to <code class="language-plaintext highlighter-rouge">bar</code>.</p>
+
+<h4 id="mixed-chart-html--javascript">Mixed chart: HTML &amp; JavaScript</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"mixed-chart"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"450"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">mixed-chart</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bar</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">labels</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">1900</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">1950</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">1999</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">2050</span><span class="dl">"</span><span class="p">],</span>
+      <span class="na">datasets</span><span class="p">:</span> <span class="p">[{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Europe</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">line</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#8e5ea2</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">408</span><span class="p">,</span><span class="mi">547</span><span class="p">,</span><span class="mi">675</span><span class="p">,</span><span class="mi">734</span><span class="p">],</span>
+          <span class="na">fill</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">line</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#3e95cd</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">133</span><span class="p">,</span><span class="mi">221</span><span class="p">,</span><span class="mi">783</span><span class="p">,</span><span class="mi">2478</span><span class="p">],</span>
+          <span class="na">fill</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Europe</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">bar</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(0,0,0,0.2)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">408</span><span class="p">,</span><span class="mi">547</span><span class="p">,</span><span class="mi">675</span><span class="p">,</span><span class="mi">734</span><span class="p">],</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">bar</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(0,0,0,0.2)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">backgroundColorHover</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#3e95cd</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[</span><span class="mi">133</span><span class="p">,</span><span class="mi">221</span><span class="p">,</span><span class="mi">783</span><span class="p">,</span><span class="mi">2478</span><span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Population growth (millions): Europe &amp; Africa</span><span class="dl">'</span>
+      <span class="p">},</span>
+      <span class="na">legend</span><span class="p">:</span> <span class="p">{</span> <span class="na">display</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="10-bubble-chart">10. Bubble chart</h2>
+
+<p class="post-content-wrapper">
+  <canvas id="post-example-bubble-chart" width="800" height="800"></canvas>
+</p>
+
+<p>Last but not least, there’s the bubble chart, a favorite of <a href="https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen">Hans Rosling</a>. Bubble charts can be great for visualizing a lot of different data points simultaneously. In this example, every bubble is made up of three values: x position, y position, and size (<code class="language-plaintext highlighter-rouge">r</code>)—showing the GDP, happiness, and population, respectively, of each country.</p>
+
+<p>In the example above, I’m using the happiness index from the <a href="http://worldhappiness.report/wp-content/uploads/sites/2/2016/03/HR-V1Ch2_web.pdf">World Happiness Report</a> for a country’s Y position, GDP estimates from <a href="http://bit.ly/2dcX425">International Monetary Fund</a> to set the X position, and the population size to set the size of the bubble. (Note that I’ve removed some of the data in the example code to reduce the amount of code you have to copy.)</p>
+
+<p>You can pass several objects (setting <code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">y</code>, and <code class="language-plaintext highlighter-rouge">x</code>) to each <code class="language-plaintext highlighter-rouge">data</code> array within every dataset object (each object will create a new bubble), but in this example I’m using only one object per array since I want every bubble to have a unique color and label.</p>
+
+<h4 id="bubble-chart-html--javascript">Bubble chart: HTML &amp; JavaScript</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"bubble-chart"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"800"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">bubble-chart</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bubble</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">labels</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Africa</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">datasets</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">China</span><span class="dl">"</span><span class="p">],</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(255,221,50,0.2)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(255,221,50,1)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[{</span>
+            <span class="na">x</span><span class="p">:</span> <span class="mi">21269017</span><span class="p">,</span>
+            <span class="na">y</span><span class="p">:</span> <span class="mf">5.245</span><span class="p">,</span>
+            <span class="na">r</span><span class="p">:</span> <span class="mi">15</span>
+          <span class="p">}]</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Denmark</span><span class="dl">"</span><span class="p">],</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(60,186,159,0.2)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(60,186,159,1)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[{</span>
+            <span class="na">x</span><span class="p">:</span> <span class="mi">258702</span><span class="p">,</span>
+            <span class="na">y</span><span class="p">:</span> <span class="mf">7.526</span><span class="p">,</span>
+            <span class="na">r</span><span class="p">:</span> <span class="mi">10</span>
+          <span class="p">}]</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Germany</span><span class="dl">"</span><span class="p">],</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(0,0,0,0.2)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#000</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[{</span>
+            <span class="na">x</span><span class="p">:</span> <span class="mi">3979083</span><span class="p">,</span>
+            <span class="na">y</span><span class="p">:</span> <span class="mf">6.994</span><span class="p">,</span>
+            <span class="na">r</span><span class="p">:</span> <span class="mi">15</span>
+          <span class="p">}]</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="na">label</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Japan</span><span class="dl">"</span><span class="p">],</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(193,46,12,0.2)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rgba(193,46,12,1)</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">data</span><span class="p">:</span> <span class="p">[{</span>
+            <span class="na">x</span><span class="p">:</span> <span class="mi">4931877</span><span class="p">,</span>
+            <span class="na">y</span><span class="p">:</span> <span class="mf">5.921</span><span class="p">,</span>
+            <span class="na">r</span><span class="p">:</span> <span class="mi">15</span>
+          <span class="p">}]</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Predicted world population (millions) in 2050</span><span class="dl">'</span>
+      <span class="p">},</span> <span class="na">scales</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">yAxes</span><span class="p">:</span> <span class="p">[{</span> 
+          <span class="na">scaleLabel</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">labelString</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Happiness</span><span class="dl">"</span>
+          <span class="p">}</span>
+        <span class="p">}],</span>
+        <span class="na">xAxes</span><span class="p">:</span> <span class="p">[{</span> 
+          <span class="na">scaleLabel</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">display</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">labelString</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GDP (PPP)</span><span class="dl">"</span>
+          <span class="p">}</span>
+        <span class="p">}]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="next-steps">Next steps</h2>
+
+<p>I hope you’ll be able to kick-start your process and quickly get started with these template graphs. Chart.js is highly customizable, so if you want to change the design of the graphs I recommend digging into <a href="http://www.chartjs.org/docs/">the official documentation</a> to explore all the parameters that you can tweak.</p>
+
+<p>If you’re new to <a href="http://www.chartjs.org/">Chart.js</a> and want to get a better overview of the library, I recommend reading my earlier post: <a href="../introduction-to-chartjs/index.html">Data visualization with Chart.js: An introduction</a>.</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<script src="../../js/posts/chartjs-example-charts.js"></script>
+
+
+	</div>
+</div>
+
+<div class="section section-dense">
+  <h2 class="section-header section-header-small">Published in:</h2>
+  <div class="section-content post-categories-content" style="background-color: #e8c3b9">
+    <div class="post-categories-links" >
+      
+        <a class="post-categories-link" href="../javascript/index.html">javascript</a> <span class="post-categories-link-divider">/</span>
+      
+        <a class="post-categories-link" href="../data/index.html">data</a> <span class="post-categories-link-divider">/</span>
+      
+        <a class="post-categories-link" href="../tutorial/index.html">tutorial</a>
+      
+    </div>
+    <span class="section-header section-header-small post-categories-date">03/05/2017</span>
+  </div>
+</div>
+<div class="newsletter-signup section section-dense">
+
+  <h2 class="section-header section-header-subscribe">Subscribe.</h2>
+  <div id="mc_embed_signup" class="newsletter-signup-container">
+    <div class="section-content newsletter-content newsletter-content-left">
+      <h3 class="grid-item-header grid-item-header-left">Get new posts delivered to your inbox</h3>
+      <div class="grid-item-divider grid-item-divider-left"></div>
+      <p class="grid-item-text grid-item-text-left">They're not frequent, promise ✌️ you can also <a href="../../feed.xml">subscribe to the RSS feed</a>.</p>
+    </div>
+
+    <div class="section-content newsletter-content newsletter-content-right">
+      <form action="https://tobiasahlin.us6.list-manage.com/subscribe/post?u=b53336ca4dca0dadf0c41405a&amp;id=a3482fb718" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+          <div class="mc-field-group">
+            <label for="mce-EMAIL">email@example.com</label>
+            <input type="email" placeholder="email@example.com" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+            <div class="newsletter-input-border"></div>
+          </div>
+          <div id="mce-responses">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_b53336ca4dca0dadf0c41405a_a3482fb718" tabindex="-1" value=""></div>
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="newsletter-signup-button">
+        </div>
+      </form>
+    </div>
+
+    
+  </div>
+</div>
+<div class="section contact-card">
+  <h2 class="section-header">Say hi.</h2>
+
+  <div class="contact-info">
+    <a class="grid-item-header grid-item-header-left" href="mailto:hello@tobiasahlin.com">hello@<br>tobiasahlin.com</a>
+
+    <div class="grid-item-divider grid-item-divider-left"></div>
+    <p class="grid-item-text grid-item-text-left">I love to design and make things. I speak, teach, and consult at tech companies and startups, e.g. Spotify, Minecraft, GitHub, and Hyper Island. <a href="https://twitter.com/tobiasahlin">Say hi!</a><br><br>
+
+    Tobias Ahlin Bjerrome <br>Stockholm, Sweden</p>
+
+    <div class="contact-links">
+      <a class="contact-link" href="https://github.com/tobiasahlin" aria-label="View my GitHub profile"><span class="contact-icon"><svg class="case-item-icon icon-github" fill="#fff" xmlns="http://www.w3.org/2000/svg" width="62" height="60" viewBox="0 0 62 60"><path d="M31 0a30.7 30.7 0 0 0-9.8 59.9c1.55.3 2.116-.6 2.116-1.4s-.026-2.7-.042-5.3c-8.622 1.9-10.44-4.1-10.44-4.1-1.414-3.5-3.448-4.5-3.448-4.5-2.815-1.9.213-1.9.213-1.9a6.74 6.74 0 0 1 4.746 3.2c2.766 4.7 7.254 3.3 9.023 2.6a6.3 6.3 0 0 1 1.966-4.1c-6.88-.8-14.12-3.5-14.12-15.2a11.964 11.964 0 0 1 3.193-8.3 10.9 10.9 0 0 1 .3-8.1s2.6-.9 8.525 3.1a30.617 30.617 0 0 1 15.522 0c5.92-4 8.517-3.1 8.517-3.1a10.886 10.886 0 0 1 .308 8.1 11.946 11.946 0 0 1 3.186 8.3c0 11.8-7.248 14.4-14.155 15.1a7.52 7.52 0 0 1 2.1 5.7c0 4.1-.04 7.5-.04 8.5 0 .8.56 1.7 2.13 1.4A30.708 30.708 0 0 0 31 0"/></svg></span></a>
+      <a class="contact-link contact-link-twitter" href="https://twitter.com/tobiasahlin" aria-label="View my Twitter profile"><svg class="contact-icon twitter-icon-svg" fill="#fff" xmlns="http://www.w3.org/2000/svg" width="60" height="49" viewBox="0 0 60 49"><path d="M60 5.8a32.794 32.794 0 0 1-7.02 2A12.573 12.573 0 0 0 58.416.9a22.046 22.046 0 0 1-7.924 3A11.967 11.967 0 0 0 41.435 0 12.256 12.256 0 0 0 29.21 12.4a11.72 11.72 0 0 0 .225 2.8A34.736 34.736 0 0 1 4.075 2.1 11.406 11.406 0 0 0 2.49 8.3a12.24 12.24 0 0 0 5.436 10.3 12.607 12.607 0 0 1-5.66-1.6v.3a12.426 12.426 0 0 0 9.96 12.1 11.632 11.632 0 0 1-3.168.5 7.87 7.87 0 0 1-2.265-.2 12.483 12.483 0 0 0 11.548 8.7 23.817 23.817 0 0 1-15.4 5.3A14.578 14.578 0 0 1 0 43.5 35.742 35.742 0 0 0 18.79 49c22.64 0 35.094-19.1 35.094-35.7v-1.6a16.4 16.4 0 0 0 6.113-5.9z"/></svg></a>
+    </div>
+
+    <div class="contact-picture">
+      <img src="../../images/profile.jpg" class="contact-picture-img" width="1160" height="1160" loading="lazy">
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
+

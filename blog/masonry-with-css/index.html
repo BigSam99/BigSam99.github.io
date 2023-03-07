@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<link rel="preconnect" href="https://srv.carbonads.net/" crossorigin>
+<link rel="preconnect" href="https://cdn4.buysellads.net/" crossorigin>
+
+	  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <meta property="og:title" content="CSS masonry with flexbox, :nth-child(), and order" />
+  <meta property="og:description" content="Creating a masonry (or mosaic) layout with flexbox produces a grid with a seemingly shuffled and obscure order, but we can achieve a natural ordering by using :nth-child() and the order property" />
+  <meta property="og:url" content="https://tobiasahlin.com/blog/masonry-with-css/" />
+  <meta property="og:type" content="blog" />
+  <meta property="og:image" content="https://tobiasahlin.com/static/-social/og_blog-masonry-with-css.jpg" />
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tobiasahlin" />
+  <meta name="twitter:creator" content="@tobiasahlin" />
+
+  <meta name="description" content="Creating a masonry (or mosaic) layout with flexbox produces a grid with a seemingly shuffled and obscure order, but we can achieve a natural ordering by using :nth-child() and the order property" />
+  <meta name="keywords" content=", tobias ahlin, github, spotify, hyper island" />
+
+	<title>
+    CSS masonry with flexbox, :nth-child(), and order | Tobias Ahlin
+  </title>
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/rss+xml"  href="../../feed.xml" title="Blog RSS Feed">
+  <link rel="apple-touch-icon" href="../../images/touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../../images/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../../images/touch-icon-iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../../images/touch-icon-ipad-retina.png">
+  <link rel="stylesheet" href="../../css/site.css">
+
+
+  <script src="../../js/anime.min.js"></script>
+	
+<script type="text/javascript" src="../../js/app.js@v=1"></script>
+
+<script defer type="text/javascript" src="../../js/post.js"></script>
+
+
+<script>
+	// Clear localStorage if number of posts have changed
+	app.search.postCountKey = "postCount";
+	var postCountCached = parseInt(localStorage.getItem(app.search.postCountKey));
+	var postCount = 126;
+
+	// If number of posts have changed, clear cache
+	if (postCount != postCountCached) { localStorage.clear(); }
+	localStorage.setItem(app.search.postCountKey, 126); 
+</script>
+</head>
+<body class="layout-post">
+
+<div class="site-header site-header-post">
+  <canvas class="site-nav-canvas"></canvas>
+<button class="js-menu menu button-clear " aria-label="Site navigation">
+  <span class="menu-icon-line-1 menu-icon-line"></span>
+  <span class="menu-icon-line-2 menu-icon-line"></span>
+  <span class="menu-icon-line-3 menu-icon-line"></span>
+</button>
+
+<div class="site-nav-overlay js-nav">
+  <div class="nav-content">
+    <div class="js-nav-header nav-header">
+      <span class="nav-header-text">Tobias Ahlin</span>
+      <div class="nav-header-line js-nav-header-line"></div>
+    </div>
+
+    <ul class="nav-categories">
+      <li class="nav-category js-nav-animate"><a href="../../index.html" class="nav-link">Overview</a></li>
+      <li class="nav-category js-nav-animate"><a href="../index.html" class="nav-link">Blog</a></li>
+      <li class="nav-category js-nav-animate"><a href="../tutorials/index.html" class="nav-link">Tutorials</a></li>
+      <li class="nav-category js-nav-animate"><a href="../../speaking/index.html" class="nav-link">Speaking</a></li>
+    </ul>
+
+    <div class="nav-sublinks js-nav-animate">
+      <div class="js-nav-animate">
+      <a class="nav-link nav-sublink" href="../../moving-letters/index.html">Moving Letters</a>
+      <a class="nav-link nav-sublink" href="../../typesource.1.html">TypeSource</a>
+      <a class="nav-link nav-sublink" href="../../spinkit/index.html">SpinKit</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <h1 class="site-name site-name-post">
+  <a class="siteLogoLink  site-name-link-parent" href="../../index.html" aria-label="Start page">
+  <svg  class="siteHead-logoMark"  width="1022" height="482" viewBox="0 0 1022 482" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M634.184 481.999L567.587 379.929L500.99 481.999H247.355L573.255 0L886.402 481.999H634.184ZM198.374 198.47H0V0H518.605L198.374 472.076V198.47Z" />
+<path d="M626.67 0C626.67 0 848.8 0 962.621 0C978.369 0 993.472 6.26031 1004.61 17.3996C1015.74 28.5423 1022 43.6521 1022 59.4083C1022 152.061 1022 329.939 1022 422.592C1022 438.348 1015.74 453.458 1004.61 464.6C993.472 475.74 978.369 482 962.621 482H939.816L626.67 0Z" />
+</svg>
+</a>
+  
+    <a class="site-name-link" href="../index.html">Blog</a>
+  
+</h1>
+  <button class="site-search js-search button-clear" aria-label="Search site">
+  <span class="site-search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 38.96 41.469">
+  <circle class="site-search-icon-circle" fill="none" stroke-width="4px" cx="16.465" cy="16.484" r="14.465"/>
+  <path class="site-search-icon-line" d="M2791.72,95.441l3.03-3.034,13.1,13.968-3.03,3.034Z" transform="translate(-2768.88 -67.938)"/>
+</svg>
+</span>
+  <span class="site-search-close-icon">
+    <span class="site-search-close-icon-line site-search-close-icon-line-1"></span>
+    <span class="site-search-close-icon-line site-search-close-icon-line-2"></span>
+  </span>
+</button>
+
+<div class="js-search-overlay site-nav-overlay-search">
+  <div class="site-search-content">
+    <input placeholder="Search…" type="text" class="js-search-input siteSearchInput">
+    <div class="site-search-content-results js-site-search-content-results">
+      <div class="site-search-content-results-list"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="single-post">
+	<div class="single-post-head" style="background-color: #2b2f3c">
+			<h1 class="post-header" >CSS masonry with flexbox, :nth-child(), and order</h1>
+
+			<div class="carbon-ad-container">
+<script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=tobiasahlincom" id="_carbonads_js"></script>
+</div>
+	</div>
+	
+	<div class="article article-single">
+		<div class="blog-banner">
+  <div class="blog-banner-content">
+      <div class="masonry-banner-logo">
+        <div class="masonry-box masonry-box-1" style="transform: scaleY(0.1) scaleX(0.15);"></div>
+        <div class="masonry-box masonry-box-2" style="transform: scaleY(0.1) scaleX(0.15);"></div>
+        <div class="masonry-box masonry-box-3" style="transform: scaleY(0.1) scaleX(0.15);"></div>
+        <div class="masonry-box masonry-box-4" style="transform: scaleY(0.1) scaleX(0.15);"></div>
+        <div class="masonry-box masonry-box-5" style="transform: scaleY(0.1) scaleX(0.15);"></div>
+        <div class="masonry-box masonry-box-6" style="transform: scaleY(0.1) scaleX(0.15);"></div>
+        <div class="masonry-box masonry-box-7" style="transform: scaleY(0.1) scaleX(0.15);"></div>
+        <div class="masonry-box masonry-box-8" style="transform: scaleY(0.1) scaleX(0.15);"></div>
+        <div class="masonry-box masonry-box-9" style="transform: scaleY(0.1) scaleX(0.15);"></div>
+      </div>
+  </div>
+</div>
+<style>
+.masonry-banner-logo {
+  width: 100px;
+  height: 70px;
+  display: inline-block;
+  position: relative;
+}
+
+.masonry-box {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 50% 0;
+}
+</style>
+
+<script>
+var postMasonryBoxTimeline = anime.timeline({ loop: true });
+postMasonryBoxTimeline
+  .add({ 
+    targets: '.masonry-box',
+    translateX: function(el, i) { 
+      if (i < 3) return "-23px";
+      if (i > 5) return "23px";
+      return 0;
+    },
+    opacity: [0,1],
+    translateY: function(el, i) { 
+      var amount = (i%3)*26;
+      return amount + "px";
+    },
+    scaleY: function(el, i) {
+      if (i == 0) return 0.2;
+      if (i == 1) return 0.1;
+      if (i == 2) return 0.15;
+      if (i == 3) return 0.11;
+      if (i == 4) return 0.19;
+      if (i == 5) return 0.12;
+      if (i == 6) return 0.14;
+      if (i == 7) return 0.1;
+      if (i == 8) return 0.16;
+    },
+    scaleX: [0, 0.15],
+    duration: 600,
+    delay: function(el, i) {
+      return 400 + i*70;
+    },
+    easing: "easeOutExpo"
+  }).add({ 
+    targets: '.masonry-box',
+    translateX: function(el, i) { 
+      if (i < 3) return "-23px";
+      if (i > 5) return "23px";
+      return 0;
+    },
+    translateY: function(el, i) { 
+      if (i == 0) return 0  + "px";
+      if (i == 1) return 24 + "px";
+      if (i == 2) return 38 + "px";
+      if (i == 3) return 0  + "px";
+      if (i == 4) return 15 + "px";
+      if (i == 5) return 38 + "px";
+      if (i == 6) return 0  + "px";
+      if (i == 7) return 18 + "px";
+      if (i == 8) return 32 + "px";
+    },
+    scaleY: function(el, i) {
+      if (i == 0) return 0.2;
+      if (i == 1) return 0.1;
+      if (i == 2) return 0.15;
+      if (i == 3) return 0.11;
+      if (i == 4) return 0.19;
+      if (i == 5) return 0.12;
+      if (i == 6) return 0.14;
+      if (i == 7) return 0.1;
+      if (i == 8) return 0.16;
+    },
+    scaleX: 0.15,
+    duration: 500,
+    delay: 700,
+    easing: "easeOutExpo"
+  }).add({ 
+    targets: '.masonry-box',
+    opacity: 0,
+    translateY: "+=10px",
+    duration: 700,
+    translateX: function(el, i) { 
+      if (i < 3) return "-23px";
+      if (i > 5) return "23px";
+      return 0;
+    },
+    scaleY: function(el, i) {
+      if (i == 0) return 0.2;
+      if (i == 1) return 0.1;
+      if (i == 2) return 0.18;
+      if (i == 3) return 0.11;
+      if (i == 4) return 0.19;
+      if (i == 5) return 0.12;
+      if (i == 6) return 0.14;
+      if (i == 7) return 0.1;
+      if (i == 8) return 0.14;
+    },
+    scaleX: 0.15,
+    delay: function(el, i) { return 1800 + i*40 },
+    easing: "easeInExpo"
+  });
+app.animations.track(postMasonryBoxTimeline, document.querySelector(".masonry-banner-logo"));
+</script>
+
+<!--more-->
+
+<p>On the surface it seems fairly easy to create a masonry layout with <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox">flexbox</a>; all you need to do is set <code class="language-plaintext highlighter-rouge">flex-flow</code> to <code class="language-plaintext highlighter-rouge">column wrap</code> and voilà, you have a masonry layout. Sort of. The problem with this approach is that it produces a grid with a seemingly shuffled and obscure order. Items will be (unbeknownst to the user) rendered from top to bottom and someone parsing the grid from left to right will read the boxes in a somewhat arbitrary order, for example 1, 3, 6, 2, 4, 7, 8, 5, and so on so forth.</p>
+
+<p>Flexbox has no easy way of rendering items with a <code class="language-plaintext highlighter-rouge">column</code> layout while using a <code class="language-plaintext highlighter-rouge">row</code> order, but we can build a masonry layout with CSS only—no JavaScript needed—by using <code class="language-plaintext highlighter-rouge">:nth-child()</code> and the <code class="language-plaintext highlighter-rouge">order</code> property. In a gist, here’s the trick to create a <code class="language-plaintext highlighter-rouge">row</code> order while using <code class="language-plaintext highlighter-rouge">flex-direction: column</code>, given that you’re rendering three columns:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* Render items as columns */</span>
+<span class="nc">.container</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">flex-flow</span><span class="p">:</span> <span class="n">column</span> <span class="n">wrap</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Re-order items into rows */</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="nt">n</span><span class="o">+</span><span class="err">1</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="nt">n</span><span class="o">+</span><span class="err">2</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="nt">n</span><span class="o">)</span>   <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">3</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c">/* Force new columns */</span>
+<span class="nc">.container</span><span class="nd">::before</span><span class="o">,</span>
+<span class="nc">.container</span><span class="nd">::after</span> <span class="p">{</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s1">""</span><span class="p">;</span>
+  <span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">order</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This will create a masonry layout with items rendered as columns but ordered as rows (the gray vertical lines represent the pseudo elements that <a href="../flexbox-break-to-new-row/index.html">force line breaks</a>:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-masonry">
+    <div class="flex-child flex-masonry-child flex-masonry-child-1">1</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-2">2</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-3">3</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-4">4</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-5">5</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-6">6</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-7">7</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-8">8</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-9">9</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-10">10</div>
+  </div>
+</div>
+
+<p>Let’s break down the implementation (or <a href="index.html#the-solution">jump to the solution</a>, or <a href="https://codepen.io/collection/XPjvPP/">see the codepen collection</a>).</p>
+
+<h2 id="pick-your-poison-a-shuffled-order-or-weird-gaps">Pick your poison: a shuffled order, or weird gaps</h2>
+
+<p>Flexbox is not really built for masonry—if you set a fixed height on a flex container (so that items can wrap when they overflow) and <code class="language-plaintext highlighter-rouge">flex-flow</code> to <code class="language-plaintext highlighter-rouge">column wrap</code>, you’ll achieve something like this:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-columns">
+    <div class="flex-child flex-column-child flex-column-child-1">1</div>
+    <div class="flex-child flex-column-child flex-column-child-2">2</div>
+    <div class="flex-child flex-column-child flex-column-child-3">3</div>
+    <div class="flex-child flex-column-child flex-column-child-4">4</div>
+    <div class="flex-child flex-column-child flex-column-child-5">5</div>
+    <div class="flex-child flex-column-child flex-column-child-6">6</div>
+    <div class="flex-child flex-column-child flex-column-child-7">7</div>
+    <div class="flex-child flex-column-child flex-column-child-8">8</div>
+    <div class="flex-child flex-column-child flex-column-child-9">9</div>
+    <div class="flex-child flex-column-child flex-column-child-10">10</div>
+  </div>
+</div>
+
+<p>Items are rendered in columns from top to bottom, producing an arbitrary order when read from left to right. This is of course the expected outcome and desirable in many scenarios, but not when we’re trying to create a masonry layout, and it becomes increasingly disorienting as a page grows taller.</p>
+
+<p>If we instead change the <code class="language-plaintext highlighter-rouge">flex-direction</code> to <code class="language-plaintext highlighter-rouge">row</code> and have elements of varying heights we’ll achieve the correct order but with weird and unexpected gaps all over our grid:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-rows">
+    <div class="flex-child flex-row-child flex-column-child-1">1</div>
+    <div class="flex-child flex-row-child flex-column-child-2">2</div>
+    <div class="flex-child flex-row-child flex-column-child-3">3</div>
+    <div class="flex-child flex-row-child flex-column-child-4">4</div>
+    <div class="flex-child flex-row-child flex-column-child-5">5</div>
+    <div class="flex-child flex-row-child flex-column-child-6">6</div>
+    <div class="flex-child flex-row-child flex-column-child-7">7</div>
+    <div class="flex-child flex-row-child flex-column-child-8">8</div>
+    <div class="flex-child flex-row-child flex-column-child-9">9</div>
+    <div class="flex-child flex-row-child flex-column-child-10">10</div>
+  </div>
+</div>
+
+<p>So it seems impossible to get the best of both worlds: items rendered as columns but ordered as rows. You might decide to use <code class="language-plaintext highlighter-rouge">flex-direction: column</code> and just move around the elements in your HTML to achieve the right <em>visual</em> order, but this can be cumbersome, it’s unnecessarily complex, and it will mess up the tab order of the elements.</p>
+
+<h2 id="re-ordering-elements-with-order-and-nth-child">Re-ordering elements with <code class="language-plaintext highlighter-rouge">order</code> and <code class="language-plaintext highlighter-rouge">nth-child()</code></h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">order</code> property affects the order of items contained in a CSS flexbox or grid, and we can use it to re-order items for our soon-to-be masonry layout. The <code class="language-plaintext highlighter-rouge">order</code> property is pretty straight-forward to use: if you have two elements and one has <code class="language-plaintext highlighter-rouge">order: 1</code> and the other one has <code class="language-plaintext highlighter-rouge">order: 2</code> the element with <code class="language-plaintext highlighter-rouge">order: 1</code> will be rendered before the other element, independent of their HTML source code order.</p>
+
+<p>The CSS masonry solution depends on a detail of the <code class="language-plaintext highlighter-rouge">order</code> specification: what happens if two or more elements have the same <code class="language-plaintext highlighter-rouge">order</code> value? Which comes first? Flexbox falls back on the source code order: the element that appears first in the source code will be rendered before other elements with the same order value. This fact gives us the possibility to easily re-group items in our grid so that we can change the ordering from columns to rows, while still rendering those rows as columns, using <code class="language-plaintext highlighter-rouge">nth-child()</code>.</p>
+
+<p>Look at the table below. To achieve a sensible order using <code class="language-plaintext highlighter-rouge">flex-direction: row</code> we’d just have to render elements in the default order: <code class="language-plaintext highlighter-rouge">1, 2, 3, 4, 5, 6</code> , etc.</p>
+
+<table class="article-table masonry-table-1">
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: center">Column 1</th>
+      <th style="text-align: center">Column 2</th>
+      <th style="text-align: center">Column 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Row 1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">3</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Row 2</td>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Row 3</td>
+      <td style="text-align: center">7</td>
+      <td style="text-align: center">8</td>
+      <td style="text-align: center">9</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Row 4</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">11</td>
+      <td style="text-align: center">12</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If we want to achieve the <em>same</em> order while using <code class="language-plaintext highlighter-rouge">flex-direction: column</code> we need to change the order of the elements to match the order of each column in the table (rather than each row):</p>
+
+<table class="article-table masonry-table-2">
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: center">Column 1</th>
+      <th style="text-align: center">Column 2</th>
+      <th style="text-align: center">Column 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Row 1</td>
+      <td style="text-align: center"><strong>1</strong></td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">3</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Row 2</td>
+      <td style="text-align: center"><strong>4</strong></td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Row 3</td>
+      <td style="text-align: center"><strong>7</strong></td>
+      <td style="text-align: center">8</td>
+      <td style="text-align: center">9</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Row 4</td>
+      <td style="text-align: center"><strong>10</strong></td>
+      <td style="text-align: center">11</td>
+      <td style="text-align: center">12</td>
+    </tr>
+  </tbody>
+</table>
+<style>
+.masonry-table-2 tr td:nth-child(2), .masonry-table tr th:nth-child(2) {
+  background-color: #A2CBFA;
+  border-radius: 2px;
+}
+</style>
+
+<p>I.e. the first elements in our flexbox layout have to be <code class="language-plaintext highlighter-rouge">1, 4, 7, 10</code>. These items will fill up the first column, followed by <code class="language-plaintext highlighter-rouge">2, 5, 8, 11</code> for the 2nd column and <code class="language-plaintext highlighter-rouge">3, 6, 9, 12</code> for the 3rd and last column. This is where the <code class="language-plaintext highlighter-rouge">nth-child()</code> selector comes in. We can use it to select every third element (3n), starting with the first element (3n+1), and set all those elements to have the same <code class="language-plaintext highlighter-rouge">order</code> value:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="nt">n</span><span class="o">+</span><span class="err">1</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>This selector sets <code class="language-plaintext highlighter-rouge">order: 1</code> for element <code class="language-plaintext highlighter-rouge">1, 4, 7, 10</code> in our container, i.e. the entire first column. In other words we’re using a combination of <code class="language-plaintext highlighter-rouge">nth-child()</code> and <code class="language-plaintext highlighter-rouge">order</code> to re-order items depending on their original order. To create the 2nd and 3rd column we just change the offset:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="nt">n</span><span class="o">+</span><span class="err">1</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="nt">n</span><span class="o">+</span><span class="err">2</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="nt">n</span><span class="o">)</span>   <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">3</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here we’re producing three sets: <code class="language-plaintext highlighter-rouge">1, 4, 7, 10</code> (3n+1) with <code class="language-plaintext highlighter-rouge">order: 1</code>, <code class="language-plaintext highlighter-rouge">2, 5, 8, 11</code> (3n+2) with <code class="language-plaintext highlighter-rouge">order: 2</code>, and <code class="language-plaintext highlighter-rouge">3, 6, 9, 12</code> (3n) with <code class="language-plaintext highlighter-rouge">order: 3</code>. All together the order becomes <code class="language-plaintext highlighter-rouge">1, 4, 7, 10, 2, 5, 8, 11, 3, 6, 9, 12</code>.</p>
+
+<p>If we make sure to render each of those groups as one column (and no more), it’ll create the illusion that the items have returned to their original order when you read from left to right. If we visually parse the grid as rows the first row will contain the first element from every group (<code class="language-plaintext highlighter-rouge">1, 2, 3</code>), the second row will contain the second element from every group (<code class="language-plaintext highlighter-rouge">4, 5, 6</code>), and so on so forth. With this technique we can create a masonry layout with items rendered as columns but ordered as rows.</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-masonry">
+    <div class="flex-child flex-masonry-child flex-masonry-child-1">1</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-2">2</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-3">3</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-4">4</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-5">5</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-6">6</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-7">7</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-8">8</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-9">9</div>
+    <div class="flex-child flex-masonry-child flex-masonry-child-10">10</div>
+  </div>
+</div>
+
+<p>How is the tab order affected by shuffling around elements like this? Luckily, not at all. <code class="language-plaintext highlighter-rouge">order</code> only changes the visual representation of objects, not the tab order, so tabbing through the grid will work as intended.</p>
+
+<h2 id="preventing-columns-from-merging">Preventing columns from merging</h2>
+
+<p>If you have many items in a masonry layout this technique will fairly certainly break down at some point. We’re counting on that every “group” that we’ve created will be rendered as exactly one column but in reality items can have different heights and columns can easily start to merge. The first column could be longer than the other two, for example, which could make the third column start at the end of the second column:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-masonryfail">
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-1">1</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-2">2</div>
+    <div class="flex-child flex-masonry-child flex-child-highlight flex-masonryfail-child-3">3</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-4">4</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-5">5</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-6">6</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-7">7</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-8">8</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-9">9</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-10">10</div>
+  </div>
+</div>
+
+<p>The highlighted box here (3) has to be rendered at the start of the third column or the ordering algorithm will break, but if there’s space for another element at the end of the 2nd column it will naturally be rendered there.</p>
+
+<p>We can fix this wrapping issue by forcing columns to restart at certain points. There’s no easy way of saying “this element should line break” with flexbox, but <a href="../flexbox-break-to-new-row/index.html">we can achieve this effect by adding invisible elements that take up 100% of the container’s height</a>. As they require 100% of the parent’s height to be rendered they won’t fit in a column together with any other element, so they’ll essentially force line breaks by creating  collapsed columns.</p>
+
+<p>We have to insert these line break elements into our grid and array of elements, so what we’re looking for is to create this sequence of elements: <code class="language-plaintext highlighter-rouge">1, 4, 7, 10, &lt;break&gt;, 2, 5, 8, 11, &lt;break&gt;, 3, 6, 9, 12</code>. We can use pseudo-elements on the container to add these, and we can set the <code class="language-plaintext highlighter-rouge">order</code> to <code class="language-plaintext highlighter-rouge">2</code> on both of them. Adding a pseudo-element with <code class="language-plaintext highlighter-rouge">:before</code> will make it the first child of the container and adding a pseudo-element with <code class="language-plaintext highlighter-rouge">:after</code> will make it the last child of the container, so if we set <code class="language-plaintext highlighter-rouge">order: 2</code> on both of them they will become the first and the last element of the <code class="language-plaintext highlighter-rouge">order: 2</code> “group” (as they appear before and after the other elements): <code class="language-plaintext highlighter-rouge">:before, 2, 5, 8, 11, :after</code>.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* Force new columns */</span>
+<span class="nc">.container</span><span class="nd">::before</span><span class="o">,</span>
+<span class="nc">.container</span><span class="nd">::after</span> <span class="p">{</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s1">""</span><span class="p">;</span>
+  <span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">order</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>I’ve highlighted the pseudo-elements below to show their effect. Notice that despite that box 3 would fit in the 2nd column it’s rendered as the first element in the last column:</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-masonryfail flex-masonryfail-fixed">
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-1">1</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-2">2</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-3">3</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-4">4</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-5">5</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-6">6</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-7">7</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-8">8</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-9">9</div>
+    <div class="flex-child flex-masonry-child flex-masonryfail-child-10">10</div>
+  </div>
+</div>
+
+<h2 id="the-solution">The solution</h2>
+
+<p>As a final step, you need to make sure that your flex container has a set height that makes it taller than your tallest column (so that all columns will fit). Put together, this will produce a CSS masonry layout with three columns (<a href="https://codepen.io/tobiasahlin/pen/JVmLRa">also available as a codepen</a>):</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">flex-flow</span><span class="p">:</span> <span class="n">column</span> <span class="n">wrap</span><span class="p">;</span>
+  <span class="nl">align-content</span><span class="p">:</span> <span class="n">space-between</span><span class="p">;</span>
+  <span class="c">/* Your container needs a fixed height, and it 
+   * needs to be taller than your tallest column. */</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">600px</span><span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="nc">.item</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">32%</span><span class="p">;</span>
+  <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">2%</span><span class="p">;</span> <span class="c">/* Optional */</span>
+<span class="p">}</span>
+
+<span class="c">/* Re-order items into 3 rows */</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="nt">n</span><span class="o">+</span><span class="err">1</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="nt">n</span><span class="o">+</span><span class="err">2</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="nt">n</span><span class="o">)</span>   <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">3</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c">/* Force new columns */</span>
+<span class="nc">.container</span><span class="nd">::before</span><span class="o">,</span>
+<span class="nc">.container</span><span class="nd">::after</span> <span class="p">{</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s1">""</span><span class="p">;</span>
+  <span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">order</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Your HTML should look like this, with one <code class="language-plaintext highlighter-rouge">&lt;div /&gt;</code> for every item in your grid:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  ...
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h2 id="working-with-more-than-three-columns">Working with more than three columns</h2>
+
+<p>To create a masonry layout with more than three columns we need to do a few things: adapt our sorting algorithm, update the width of the items, and insert line break elements manually (instead of using pseudo-elements). For quick access to the final result I’ve compiled <a href="https://codepen.io/collection/XPjvPP/">a list of codepens showcasing flexbox masonry with 3, 4, 5 and 6 columns</a>.</p>
+
+<p>Since we’re limited to creating just two pseudo-elements with <code class="language-plaintext highlighter-rouge">:before</code> and <code class="language-plaintext highlighter-rouge">:after</code> we need to resort to manually adding break elements into our container (you need one less break element than the number of columns in your layout). You can just append them to the end of your container, they’ll be sorted into their respective columns:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/div&gt;</span>
+  ...
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"item break"</span><span class="nt">&gt;&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"item break"</span><span class="nt">&gt;&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"item break"</span><span class="nt">&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>We’re inserting column breaks as <code class="language-plaintext highlighter-rouge">span</code>s in order to sort them independently from the content items. We need a way to “restart” the counting once we reach the break elements, or an uneven number of content items could make the first break element start after the 3rd column, for example. The <code class="language-plaintext highlighter-rouge">:nth-of-type</code> selector targets elements of different types independently, so we can decouple the order of the content items and the column breaks like so:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span><span class="nd">:nth-of-type</span><span class="o">(</span><span class="err">4</span><span class="nt">n</span><span class="o">+</span><span class="err">1</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-of-type</span><span class="o">(</span><span class="err">4</span><span class="nt">n</span><span class="o">+</span><span class="err">2</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-of-type</span><span class="o">(</span><span class="err">4</span><span class="nt">n</span><span class="o">+</span><span class="err">3</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">3</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-of-type</span><span class="o">(</span><span class="err">4</span><span class="nt">n</span><span class="o">)</span>   <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">4</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>The break elements, like previously, take up the full height of the container:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* Force new columns */</span>
+<span class="nc">.break</span> <span class="p">{</span>
+  <span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This will create a masonry layout with four columns (<a href="https://codepen.io/tobiasahlin/pen/OGBvqW">view codepen</a>):</p>
+
+<div class="post-content-wrapper">
+  <div class="flex-masonry flex-masonry-4columns">
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-1">1</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-2">2</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-3">3</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-4">4</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-5">5</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-6">6</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-7">7</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-8">8</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-9">9</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-10">10</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-11">11</div>
+    <div class="flex-child flex-masonry-child-4columns flex-masonry-child-12">12</div>
+    <span class="flex-masonry-child-4columns flex-masonry-break"></span>
+    <span class="flex-masonry-child-4columns flex-masonry-break"></span>
+    <span class="flex-masonry-child-4columns flex-masonry-break"></span>
+  </div>
+</div>
+
+<p>Here’s the full solution for a CSS masonry layout with four columns:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">flex-flow</span><span class="p">:</span> <span class="n">column</span> <span class="n">wrap</span><span class="p">;</span>
+  <span class="nl">align-content</span><span class="p">:</span> <span class="n">space-between</span><span class="p">;</span>
+  <span class="c">/* Your container needs a fixed height, and it 
+   * needs to be taller than your tallest column. */</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">600px</span><span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="nc">.item</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span><span class="m">24%</span><span class="p">;</span>
+  <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">2%</span><span class="p">;</span> <span class="c">/* Optional */</span>
+<span class="p">}</span>
+
+<span class="c">/* Re-order items into 4 rows */</span>
+<span class="nc">.item</span><span class="nd">:nth-of-type</span><span class="o">(</span><span class="err">4</span><span class="nt">n</span><span class="o">+</span><span class="err">1</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-of-type</span><span class="o">(</span><span class="err">4</span><span class="nt">n</span><span class="o">+</span><span class="err">2</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-of-type</span><span class="o">(</span><span class="err">4</span><span class="nt">n</span><span class="o">+</span><span class="err">3</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">3</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-of-type</span><span class="o">(</span><span class="err">4</span><span class="nt">n</span><span class="o">)</span>   <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">4</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c">/* Force new columns */</span>
+<span class="nc">.break</span> <span class="p">{</span>
+  <span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This CSS-only way of creating a masonry (or mosaic) layout is surely not as robust, flexible, and foolproof as a JavaScript implementation (like <a href="https://masonry.desandro.com/">Masonry</a>) but if you don’t want to rely on a third-party library just to create a masonry layout I hope that these layouts tricks can come in handy.</p>
+
+<p>For help with more common CSS flexbox patterns, <a href="../common-flexbox-patterns/index.html">I’ve compiled a list of flexbox examples that you can copy and paste into your projects</a> and <a href="../flexbox-break-to-new-row/index.html">written in-depth about the line-breaking flexbox item technique</a>.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+  <li><a href="https://twitter.com/gilbitron">Gilbert Pellegrom</a> has created <a href="https://flexmasonry.now.sh">FlexMasonry</a>, a lightweight JavaScript masonry library inspired by the technique outlined in this article</li>
+  <li>October, 2020: the CSS Working Group has now published a <a href="https://drafts.csswg.org/css-grid-3/">draft specification for masonry layouts</a>, as part of CSS grid</li>
+  <li>CSS masonry <a href="https://css-houdini.rocks/masonry/">can also be implemented</a> with <a href="https://developer.mozilla.org/en-US/docs/Web/Houdini">Houdini</a> (requires flag)</li>
+</ul>
+
+<style>
+.flex-masonry,
+.flex-masonryfail {
+  background-color: #f7f7f7;
+  border-radius: 3px;
+  padding: 20px;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: space-between;
+  height: 580px;
+}
+
+.flex-columns {
+  background-color: #f7f7f7;
+  border-radius: 3px;
+  padding: 20px;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: space-between;
+  height: 530px;
+}
+
+.flex-rows {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.flex-child {
+  border-radius: 3px;
+  background-color: #A2CBFA;
+  border: 1px solid #4390E1;
+  box-shadow: 0 2px 2px rgba(0,90,250,0.05),
+    0 4px 4px rgba(0,90,250,0.05),
+    0 8px 8px rgba(0,90,250,0.05),
+    0 16px 16px rgba(0,90,250,0.05);
+  width: 32%;
+  margin-bottom: 2%; /* (100-32*3)/2 */
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  color: white;
+}
+
+.flex-child-highlight {
+  background-color: #cc4a8b;
+  border-color: #8a2155;
+}
+
+.flex-column-child-1 { height: 200px; }
+.flex-column-child-2 { height: 150px; }
+.flex-column-child-3 { height: 125px; }
+.flex-column-child-4 { height: 150px; }
+.flex-column-child-5 { height: 100px; }
+.flex-column-child-6 { height: 125px; }
+.flex-column-child-7 { height: 100px; }
+.flex-column-child-8 { height: 125px; }
+.flex-column-child-9 { height: 100px; }
+.flex-column-child-10 { height: 100px; }
+
+.flex-masonry-child-1 { height: 200px; }
+.flex-masonry-child-2 { height: 205px; }
+.flex-masonry-child-3 { height: 175px; }
+.flex-masonry-child-4 { height: 100px; }
+.flex-masonry-child-5 { height: 100px; }
+.flex-masonry-child-6 { height: 155px; }
+.flex-masonry-child-7 { height: 100px; }
+.flex-masonry-child-8 { height: 175px; }
+.flex-masonry-child-9 { height: 150px; }
+.flex-masonry-child-10 { height: 100px; }
+.flex-masonry-child-11 { height: 150px; }
+.flex-masonry-child-12 { height: 100px; }
+
+.flex-masonryfail-child-1 { height: 200px; }
+.flex-masonryfail-child-2 { height: 205px; }
+.flex-masonryfail-child-3 { height: 75px; }
+.flex-masonryfail-child-4 { height: 100px; }
+.flex-masonryfail-child-5 { height: 100px; }
+.flex-masonryfail-child-6 { height: 155px; }
+.flex-masonryfail-child-7 { height: 100px; }
+.flex-masonryfail-child-8 { height: 75px; }
+.flex-masonryfail-child-9 { height: 150px; }
+.flex-masonryfail-child-10 { height: 100px; }
+
+.flex-masonry-child:nth-child(3n+1) { order: 1; }
+.flex-masonry-child:nth-child(3n+2) { order: 2; }
+.flex-masonry-child:nth-child(3n) { order: 3; }
+
+.flex-masonry::before,
+.flex-masonry::after {
+  content: "";
+  flex-basis: 100%;
+  width: 0;
+  order: 2;
+  border: 1px solid #ddd;
+}
+
+.flex-masonryfail-fixed::before,
+.flex-masonryfail-fixed::after {
+  content: "";
+  flex-basis: 100%;
+  width: 0;
+  order: 2;
+  border: 1px solid #8a2155;
+}
+
+/* Four columns */
+.flex-masonry-4columns {
+  height: 520px;
+}
+
+.flex-masonry-4columns::after,
+.flex-masonry-4columns::before {
+  content: none;
+}
+
+.flex-masonry-child-4columns {
+  width: 24%;
+}
+
+.flex-masonry-child-4columns:nth-of-type(4n+1) { order: 1; }
+.flex-masonry-child-4columns:nth-of-type(4n+2) { order: 2; }
+.flex-masonry-child-4columns:nth-of-type(4n+3) { order: 3; }
+.flex-masonry-child-4columns:nth-of-type(4n)   { order: 4; }
+
+.flex-masonry-break {
+  flex-basis: 100%;
+  width: 0;
+  border: 1px solid #ddd;
+  margin: 0;
+}
+</style>
+
+
+	</div>
+</div>
+
+<div class="section section-dense">
+  <h2 class="section-header section-header-small">Published in:</h2>
+  <div class="section-content post-categories-content" style="background-color: #2b2f3c">
+    <div class="post-categories-links" >
+      
+        <a class="post-categories-link" href="../css/index.html">css</a> <span class="post-categories-link-divider">/</span>
+      
+        <a class="post-categories-link" href="../tutorial/index.html">tutorial</a>
+      
+    </div>
+    <span class="section-header section-header-small post-categories-date">15/04/2019</span>
+  </div>
+</div>
+<div class="newsletter-signup section section-dense">
+
+  <h2 class="section-header section-header-subscribe">Subscribe.</h2>
+  <div id="mc_embed_signup" class="newsletter-signup-container">
+    <div class="section-content newsletter-content newsletter-content-left">
+      <h3 class="grid-item-header grid-item-header-left">Get new posts delivered to your inbox</h3>
+      <div class="grid-item-divider grid-item-divider-left"></div>
+      <p class="grid-item-text grid-item-text-left">They're not frequent, promise ✌️ you can also <a href="../../feed.xml">subscribe to the RSS feed</a>.</p>
+    </div>
+
+    <div class="section-content newsletter-content newsletter-content-right">
+      <form action="https://tobiasahlin.us6.list-manage.com/subscribe/post?u=b53336ca4dca0dadf0c41405a&amp;id=a3482fb718" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+          <div class="mc-field-group">
+            <label for="mce-EMAIL">email@example.com</label>
+            <input type="email" placeholder="email@example.com" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+            <div class="newsletter-input-border"></div>
+          </div>
+          <div id="mce-responses">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_b53336ca4dca0dadf0c41405a_a3482fb718" tabindex="-1" value=""></div>
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="newsletter-signup-button">
+        </div>
+      </form>
+    </div>
+
+    
+  </div>
+</div>
+<div class="section contact-card">
+  <h2 class="section-header">Say hi.</h2>
+
+  <div class="contact-info">
+    <a class="grid-item-header grid-item-header-left" href="mailto:hello@tobiasahlin.com">hello@<br>tobiasahlin.com</a>
+
+    <div class="grid-item-divider grid-item-divider-left"></div>
+    <p class="grid-item-text grid-item-text-left">I love to design and make things. I speak, teach, and consult at tech companies and startups, e.g. Spotify, Minecraft, GitHub, and Hyper Island. <a href="https://twitter.com/tobiasahlin">Say hi!</a><br><br>
+
+    Tobias Ahlin Bjerrome <br>Stockholm, Sweden</p>
+
+    <div class="contact-links">
+      <a class="contact-link" href="https://github.com/tobiasahlin" aria-label="View my GitHub profile"><span class="contact-icon"><svg class="case-item-icon icon-github" fill="#fff" xmlns="http://www.w3.org/2000/svg" width="62" height="60" viewBox="0 0 62 60"><path d="M31 0a30.7 30.7 0 0 0-9.8 59.9c1.55.3 2.116-.6 2.116-1.4s-.026-2.7-.042-5.3c-8.622 1.9-10.44-4.1-10.44-4.1-1.414-3.5-3.448-4.5-3.448-4.5-2.815-1.9.213-1.9.213-1.9a6.74 6.74 0 0 1 4.746 3.2c2.766 4.7 7.254 3.3 9.023 2.6a6.3 6.3 0 0 1 1.966-4.1c-6.88-.8-14.12-3.5-14.12-15.2a11.964 11.964 0 0 1 3.193-8.3 10.9 10.9 0 0 1 .3-8.1s2.6-.9 8.525 3.1a30.617 30.617 0 0 1 15.522 0c5.92-4 8.517-3.1 8.517-3.1a10.886 10.886 0 0 1 .308 8.1 11.946 11.946 0 0 1 3.186 8.3c0 11.8-7.248 14.4-14.155 15.1a7.52 7.52 0 0 1 2.1 5.7c0 4.1-.04 7.5-.04 8.5 0 .8.56 1.7 2.13 1.4A30.708 30.708 0 0 0 31 0"/></svg></span></a>
+      <a class="contact-link contact-link-twitter" href="https://twitter.com/tobiasahlin" aria-label="View my Twitter profile"><svg class="contact-icon twitter-icon-svg" fill="#fff" xmlns="http://www.w3.org/2000/svg" width="60" height="49" viewBox="0 0 60 49"><path d="M60 5.8a32.794 32.794 0 0 1-7.02 2A12.573 12.573 0 0 0 58.416.9a22.046 22.046 0 0 1-7.924 3A11.967 11.967 0 0 0 41.435 0 12.256 12.256 0 0 0 29.21 12.4a11.72 11.72 0 0 0 .225 2.8A34.736 34.736 0 0 1 4.075 2.1 11.406 11.406 0 0 0 2.49 8.3a12.24 12.24 0 0 0 5.436 10.3 12.607 12.607 0 0 1-5.66-1.6v.3a12.426 12.426 0 0 0 9.96 12.1 11.632 11.632 0 0 1-3.168.5 7.87 7.87 0 0 1-2.265-.2 12.483 12.483 0 0 0 11.548 8.7 23.817 23.817 0 0 1-15.4 5.3A14.578 14.578 0 0 1 0 43.5 35.742 35.742 0 0 0 18.79 49c22.64 0 35.094-19.1 35.094-35.7v-1.6a16.4 16.4 0 0 0 6.113-5.9z"/></svg></a>
+    </div>
+
+    <div class="contact-picture">
+      <img src="../../images/profile.jpg" class="contact-picture-img" width="1160" height="1160" loading="lazy">
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
+

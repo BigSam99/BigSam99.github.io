@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<link rel="preconnect" href="https://srv.carbonads.net/" crossorigin>
+<link rel="preconnect" href="https://cdn4.buysellads.net/" crossorigin>
+
+	  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <meta property="og:title" content="A brief introduction to A/B-testing" />
+  <meta property="og:description" content="Learn how to use A/B-testing as a guiding compass for making product decisions, and how to avoid its pitfalls" />
+  <meta property="og:url" content="https://tobiasahlin.com/blog/introduction-to-ab-testing/" />
+  <meta property="og:type" content="blog" />
+  <meta property="og:image" content="https://tobiasahlin.com/static/-social/og_blog-introduction-to-ab-testing.jpg" />
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tobiasahlin" />
+  <meta name="twitter:creator" content="@tobiasahlin" />
+
+  <meta name="description" content="Learn how to use A/B-testing as a guiding compass for making product decisions, and how to avoid its pitfalls" />
+  <meta name="keywords" content=", tobias ahlin, github, spotify, hyper island" />
+
+	<title>
+    A brief introduction to A/B-testing | Tobias Ahlin
+  </title>
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/rss+xml"  href="../../feed.xml" title="Blog RSS Feed">
+  <link rel="apple-touch-icon" href="../../images/touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../../images/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../../images/touch-icon-iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../../images/touch-icon-ipad-retina.png">
+  <link rel="stylesheet" href="../../css/site.css">
+
+
+  <script src="../../js/anime.min.js"></script>
+	
+<script type="text/javascript" src="../../js/app.js@v=1"></script>
+
+<script defer type="text/javascript" src="../../js/post.js"></script>
+
+
+<script>
+	// Clear localStorage if number of posts have changed
+	app.search.postCountKey = "postCount";
+	var postCountCached = parseInt(localStorage.getItem(app.search.postCountKey));
+	var postCount = 126;
+
+	// If number of posts have changed, clear cache
+	if (postCount != postCountCached) { localStorage.clear(); }
+	localStorage.setItem(app.search.postCountKey, 126); 
+</script>
+</head>
+<body class="layout-post">
+
+<div class="site-header site-header-post">
+  <canvas class="site-nav-canvas"></canvas>
+<button class="js-menu menu button-clear " aria-label="Site navigation">
+  <span class="menu-icon-line-1 menu-icon-line"></span>
+  <span class="menu-icon-line-2 menu-icon-line"></span>
+  <span class="menu-icon-line-3 menu-icon-line"></span>
+</button>
+
+<div class="site-nav-overlay js-nav">
+  <div class="nav-content">
+    <div class="js-nav-header nav-header">
+      <span class="nav-header-text">Tobias Ahlin</span>
+      <div class="nav-header-line js-nav-header-line"></div>
+    </div>
+
+    <ul class="nav-categories">
+      <li class="nav-category js-nav-animate"><a href="../../index.html" class="nav-link">Overview</a></li>
+      <li class="nav-category js-nav-animate"><a href="../index.html" class="nav-link">Blog</a></li>
+      <li class="nav-category js-nav-animate"><a href="../tutorials/index.html" class="nav-link">Tutorials</a></li>
+      <li class="nav-category js-nav-animate"><a href="../../speaking/index.html" class="nav-link">Speaking</a></li>
+    </ul>
+
+    <div class="nav-sublinks js-nav-animate">
+      <div class="js-nav-animate">
+      <a class="nav-link nav-sublink" href="../../moving-letters/index.html">Moving Letters</a>
+      <a class="nav-link nav-sublink" href="../../typesource.1.html">TypeSource</a>
+      <a class="nav-link nav-sublink" href="../../spinkit/index.html">SpinKit</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <h1 class="site-name site-name-post">
+  <a class="siteLogoLink  site-name-link-parent" href="../../index.html" aria-label="Start page">
+  <svg  class="siteHead-logoMark"  width="1022" height="482" viewBox="0 0 1022 482" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M634.184 481.999L567.587 379.929L500.99 481.999H247.355L573.255 0L886.402 481.999H634.184ZM198.374 198.47H0V0H518.605L198.374 472.076V198.47Z" />
+<path d="M626.67 0C626.67 0 848.8 0 962.621 0C978.369 0 993.472 6.26031 1004.61 17.3996C1015.74 28.5423 1022 43.6521 1022 59.4083C1022 152.061 1022 329.939 1022 422.592C1022 438.348 1015.74 453.458 1004.61 464.6C993.472 475.74 978.369 482 962.621 482H939.816L626.67 0Z" />
+</svg>
+</a>
+  
+    <a class="site-name-link" href="../index.html">Blog</a>
+  
+</h1>
+  <button class="site-search js-search button-clear" aria-label="Search site">
+  <span class="site-search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 38.96 41.469">
+  <circle class="site-search-icon-circle" fill="none" stroke-width="4px" cx="16.465" cy="16.484" r="14.465"/>
+  <path class="site-search-icon-line" d="M2791.72,95.441l3.03-3.034,13.1,13.968-3.03,3.034Z" transform="translate(-2768.88 -67.938)"/>
+</svg>
+</span>
+  <span class="site-search-close-icon">
+    <span class="site-search-close-icon-line site-search-close-icon-line-1"></span>
+    <span class="site-search-close-icon-line site-search-close-icon-line-2"></span>
+  </span>
+</button>
+
+<div class="js-search-overlay site-nav-overlay-search">
+  <div class="site-search-content">
+    <input placeholder="Search…" type="text" class="js-search-input siteSearchInput">
+    <div class="site-search-content-results js-site-search-content-results">
+      <div class="site-search-content-results-list"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<style>
+.site-name-post { color: rgba(255,255,255,1); }
+.site-header-post .menu-icon-line { 
+  background-color: rgba(255,255,255,0.6); 
+}
+.site-header-post .menu:hover > .menu-icon-line { 
+  background-color: rgba(255,255,255,1); 
+}
+
+.site-header-post .site-search-icon-circle,
+.site-search-icon:hover .site-search-icon-circle { stroke: rgba(255,255,255,1) !important; }
+.site-header-post .site-search-icon-line,
+.site-search-icon:hover .site-search-icon-line { fill: rgba(255,255,255,1) !important; }
+</style>
+
+<div class="single-post">
+	<div class="single-post-head" style="background-color: #3bab87">
+			<h1 class="post-header" style="color: rgba(255,255,255,1)">A brief introduction to A/B-testing</h1>
+
+			<div class="carbon-ad-container">
+<script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=tobiasahlincom" id="_carbonads_js"></script>
+</div>
+	</div>
+	
+	<div class="article article-single">
+		<div class="blog-banner">
+  <div class="blog-banner-content">
+    <img src="../../static/ab-testing/icon.svg" width="145px" />
+  </div>
+</div>
+
+<!--more-->
+
+<p>A/B-testing is a guiding compass for making product decisions. More technically, it’s a method for quantifying the impact of product variations. The process can’t tell us if one variation is unequivocally “better” than another, but it <em>can</em> tell us which of a set of variations is better at producing a certain effect, encouraging a behavior, or achieving a goal.</p>
+
+<p>The basic method is similar to a clinical trial with a placebo group. By testing two or more variations of an experience (labeled A, B, C, etc.) and measuring how they cause similar groups of people to behave differently on average, we can assess a design’s impact. What we need at the minimum, then, is one control (A), one variant (B), and a random sample of users. The two versions could be our product in its current state, and a new idea that we want to compare it against:</p>
+
+<p><img src="../../static/ab-testing/test-variants.png" alt="A/B test variants" width="2091" height="1090" style="padding: 0 3%; box-sizing: border-box;" loading="lazy" /></p>
+
+<p>At a surface level, A/B testing is as simple as that: build two variations of something and measure the difference in behavior.</p>
+
+<h2 id="incrementalism-and-learning">Incrementalism and learning</h2>
+
+<p>Before we go into the details of running such a test, let’s take a step back and examine the underlying thought process. A philosophy that’s usually coupled with A/B-testing is incrementalism: the idea that we can build great products, make innovative leaps, and overcome daring obstacles by implementing gradual and measurable improvements. A vision can guide this iteration and experimentation, but rather than acting as a blueprint that gets fully built and realized in one humongous project—a risky and expensive endeavor—that vision typically serves as a north star. Small incremental improvements build up and inch us ever closer towards it, but experiments feedback into the vision and slowly transform it over time, placing the north star forever out of reach.</p>
+
+<p>To embrace this philosophy and effectively accumulate insights and improvements through experimentation, we need to foster a culture and process that supports learning. If we don’t, we risk going in circles—running tests that have no impact, and that teach us nothing new. An important goal for a data-driven design organization is not just making an impact but learning as quickly as possible about a moving target. We need to allocate our resources based on how promising our different strategies seem at any given point. What’s worth focusing on will vary over time as your product and audience grows and transforms, and it’s something that you will have to learn and relearn continuously.</p>
+
+<p>With learning as a core pillar of this philosophy, we can map experiment-driven design as a circular process of <strong>building</strong>, <strong>measuring</strong>, and <strong>learning</strong>:</p>
+
+<p><img src="../../static/ab-testing/process.png" alt="A/B test process" width="1315" height="1232" style="padding: 0 16%; box-sizing: border-box;" loading="lazy" /></p>
+
+<p>Every test doesn’t necessarily have to make your product better—but every test should teach you something. The A/B-testing process usually includes the articulation of hypotheses to facilitate that learning: we make sure that we capture our beliefs before running tests so that we can compare them with our new beliefs that we’ve acquired after seeing the results.</p>
+
+<p>At a more granular level, an A/B-testing process can look something like this:</p>
+
+<ol>
+  <li><strong>Ideate</strong>: Come up with one or more ideas that you want to test, based on your previous data, experience, problems, and goals.</li>
+  <li><strong>Hypothesize</strong>: Define hypotheses for each idea, outline why you think those ideas could have an impact, and what result you expect to see.</li>
+  <li><strong>Plan</strong>: To gaurd against your own biases and what you <em>want</em> to believe, you can tie different outcomes to follow-up actions before running the test. Define an array of outcomes, and tie those outcomes to different follow-up actions.</li>
+  <li><strong>Create</strong>: Design and implement the variations you believe in most.</li>
+  <li><strong>Expose</strong>: Ship the variations to a subset of your users in a randomized trial.</li>
+  <li><strong>Wait</strong>: Wait for the tests to get enough exposure to offer meaningful insights.</li>
+  <li><strong>Analyze</strong>: Analyze the data from the test.</li>
+  <li><strong>Deliberate</strong>: Discuss what the results mean and how they validate or disprove your hypotheses.</li>
+  <li><strong>Ship</strong>, <strong>iterate</strong>, or <strong>abandon</strong>: Based on your learnings, roll out a variation to all users, iterate on a direction before running another test, or abandon ideas in favor of exploring other directions.</li>
+</ol>
+
+<h2 id="running-a-test">Running a test</h2>
+
+<p>Say that we have a website that looks like illustration <strong>A</strong> (control) below: we have a logo in the top left, a menu in the top right, an image of our product, a header, and a short description. We then have two large buttons visible above the fold: “Sign up” and “Login.”</p>
+
+<p><img src="../../static/ab-testing/test-variants.png" alt="A/B test variants" width="2091" height="1090" style="padding: 0 3%; box-sizing: border-box;" loading="lazy" /></p>
+
+<p>Someone in our organization has proposed that we should move the “Login” button to the menu in the top right, and keep the “Sign up” button as is (<strong>B</strong>). They hypothesize that making the “Sign up” button the most prominent call to action will cause more people to see it, which will lead more people to sign up.</p>
+
+<p>To measure the impact of that change, we need to implement design B and expose a random subset of our users to it, alongside the default experience, which will act as a control. The exact proportion of our visitors (here 20%) that you enroll in a test will vary depending on the test and circumstances. The more users that get enrolled in an experiment the faster you’ll get the data that you need to analyze it, but make sure to not expose more users than necessary. After all, a variation might mistakenly make your product worse, and you want to mitigate any potential negative effects. In our hypothetical scenario, half of the visitors assigned to the test will see variation A, and half of them will see variation B.</p>
+
+<p><img src="../../static/ab-testing/test-distribution.png" alt="A/B test distribution" width="1486" height="835" style="padding: 0 10%; box-sizing: border-box;" loading="lazy" /></p>
+
+<p>The experiences are identical in every single aspect except the moved “Login” button. If we see that people using the B-version of our website are more likely to sign up, we can conclude that the altered button <strong>causes</strong> that effect.</p>
+
+<p>In other words, we can establish a causational relationship between design B and a behavioral change: an increase in sign-ups. Not just a correlation—this is why we need a control group to compare against. If we implement <strong>B</strong>, launch it to all our users, and then notice an increase in sign-ups, that increase would only correlate with the launch of the new design—it could as well be caused by a random tweet, a holiday, or a mention in a podcast. We wouldn’t know for sure, so we wouldn’t be able to draw any conclusions about the effects of the new design.</p>
+
+<p>We also need the users to be randomly assigned to each cell to infer a causal relationship. If we select users for the cells by different criteria and end up with more engaged users in one of the groups, it might make that cell perform better regardless of the introduced change: the skewed selection of users is already more engaged on average. If we randomize the distribution of users, we can expect that all attributes (engagement, age, experience, etc.) are equally distributed between the groups, and won’t influence the outcome.</p>
+
+<h2 id="you-become-what-you-measure">You become what you measure</h2>
+
+<p>Presume that we run this test, and after analyzing it, we see a statistically significant four percentage-point increase in sign-ups for variation <em>B</em>:</p>
+
+<p><img src="../../static/ab-testing/test-variants-lift.png" alt="A/B test success" width="2136" height="1219" style="padding: 0 3%; box-sizing: border-box;" loading="lazy" /></p>
+
+<p>Variation B looks like a clear winner! Should we launch it? Here’s where we need to return to the notion that an A/B-test can’t tell us if <strong>B</strong> is unequivocally better than <strong>A</strong>. If our team’s goal is to increase sign-ups and we only measure sign-ups to assess if our tests are successful or not, we’ll likely run precisely these kinds of tests, where we promote the one feature connected to our goal while neglecting or diminishing other features. In this instance, the result can be a slow but steady accumulation of changes that taken together go against common sense: we’ll make it increasingly difficult for already signed up users to access the product.</p>
+
+<p>If the only thing we measure is the metric that’s fundamental for our success, we have a destructive setup that will enforce skewed incentives to promote features connected to our goal while neglecting other parts of the experience. If other teams in the same organization have similarly skewed incentives, it’s a recipe for conflicts and counterproductive back-and-forths.</p>
+
+<p>Unless we keep track of other key metrics and keep an eye out for accidental changes in different behaviors, we risk accumulating a myriad of unwanted side effects. When running the test outlined in this example, we might need to measure successful logins and retention (returning users over a certain period) in addition to sign-ups to understand if the change is introducing friction for already signed up users.</p>
+
+<p>In other words, the goals you set up and the key metrics that you keep track of will undoubtedly influence your product decisions. They form the restrictions that you iterate within.</p>
+
+<h2 id="balancing-impact-vs-learnings">Balancing impact vs. learnings</h2>
+
+<p>Why are we spending so much time on analyzing the effects of such a tiny difference? Wouldn’t it be more worthwhile to test more drastic changes? We could, without a doubt, introduce more ambitious and more significant changes. The challenge is that the more we change in one single test, the more difficult it can be to understand the results of that test—to pull it apart and learn precisely what variable caused which behavioral change.</p>
+
+<p>On the flip side, if we don’t change enough, we might fail to produce any meaningful changes at all, or at least not impactful enough to be noticeable. If we focus on learning and incremental improvements, then, there’s a U-shaped relationship between how much we change in a test, and how much we can typically learn from it:</p>
+
+<p><img src="../../static/ab-testing/learnings-vs-impact.png" alt="A/B-test learning vs amount of change" width="1508" height="1103" style="padding: 0 12% 0 3%; box-sizing: border-box;" loading="lazy" /></p>
+
+<p>If we don’t change enough, the impact will be too small to be noticeable. The difference will be unobservable or negligible. If we change too much—e.g., completely redesign the entire product—the introduced changes and the produced outcomes can become a tangled mess. We’ve no idea what variable that caused what effect. Clear and valuable insights are somewhere in the middle. Developing a sense of how significant changes to test is part of learning how to utilize A/B-tests effectively. It’s different from product to product and depends on how well-optimized your product already is.</p>
+
+<p>Importantly, this doesn’t mean that you <em>shouldn’t</em> test more significant and visionary changes or ideas—it just means that every test is a gamble, and the bigger the change, the higher the risk of blurring learnings. At the same time, an ambitious change <em>might</em> hit the jackpot and make a substantial and meaningful impact.</p>
+
+<h2 id="a-defense-against-regressions">A defense against regressions</h2>
+
+<p>This process might seem to be a terribly expensive way of improving a product, and to be fair, it is. We’re spending a lot of time conducting tests that we could’ve spent building and shipping new features. So, why is it worth it? Or rather, when? As a rule of thumb, the more users you have, the more damage you can cause by shipping features that, despite your best intentions, happen to make the product worse for your average user.</p>
+
+<p>The A/B-testing process really shines when it’s more expensive to make mistakes than to control for them. As your user base grows and your product matures, A/B-testing and data-driven design become an increasingly valuable tool not only to learn and iterate but to defend yourself against regressions. We can use it to gate the innovation process and only launch changes that we know make the product better—we introduce an objective selection process that only lets the fittest ideas survive. An overly zealous application of that selection process might shut out any change which’s effects aren’t quantifiable (which isn’t great—everything that matters isn’t quantifiable), but done right it can democratize the creative process and create an experimentation platform with clear goals and restrictions that we can iterate within.</p>
+
+	</div>
+</div>
+
+<div class="section section-dense">
+  <h2 class="section-header section-header-small">Published in:</h2>
+  <div class="section-content post-categories-content" style="background-color: #3bab87">
+    <div class="post-categories-links" style="color: rgba(255,255,255,1)">
+      
+        <a class="post-categories-link" href="../design/index.html">design</a> <span class="post-categories-link-divider">/</span>
+      
+        <a class="post-categories-link" href="../data/index.html">data</a>
+      
+    </div>
+    <span class="section-header section-header-small post-categories-date">20/05/2020</span>
+  </div>
+</div>
+<div class="newsletter-signup section section-dense">
+
+  <h2 class="section-header section-header-subscribe">Subscribe.</h2>
+  <div id="mc_embed_signup" class="newsletter-signup-container">
+    <div class="section-content newsletter-content newsletter-content-left">
+      <h3 class="grid-item-header grid-item-header-left">Get new posts delivered to your inbox</h3>
+      <div class="grid-item-divider grid-item-divider-left"></div>
+      <p class="grid-item-text grid-item-text-left">They're not frequent, promise ✌️ you can also <a href="../../feed.xml">subscribe to the RSS feed</a>.</p>
+    </div>
+
+    <div class="section-content newsletter-content newsletter-content-right">
+      <form action="https://tobiasahlin.us6.list-manage.com/subscribe/post?u=b53336ca4dca0dadf0c41405a&amp;id=a3482fb718" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+          <div class="mc-field-group">
+            <label for="mce-EMAIL">email@example.com</label>
+            <input type="email" placeholder="email@example.com" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+            <div class="newsletter-input-border"></div>
+          </div>
+          <div id="mce-responses">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_b53336ca4dca0dadf0c41405a_a3482fb718" tabindex="-1" value=""></div>
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="newsletter-signup-button">
+        </div>
+      </form>
+    </div>
+
+    
+  </div>
+</div>
+<div class="section contact-card">
+  <h2 class="section-header">Say hi.</h2>
+
+  <div class="contact-info">
+    <a class="grid-item-header grid-item-header-left" href="mailto:hello@tobiasahlin.com">hello@<br>tobiasahlin.com</a>
+
+    <div class="grid-item-divider grid-item-divider-left"></div>
+    <p class="grid-item-text grid-item-text-left">I love to design and make things. I speak, teach, and consult at tech companies and startups, e.g. Spotify, Minecraft, GitHub, and Hyper Island. <a href="https://twitter.com/tobiasahlin">Say hi!</a><br><br>
+
+    Tobias Ahlin Bjerrome <br>Stockholm, Sweden</p>
+
+    <div class="contact-links">
+      <a class="contact-link" href="https://github.com/tobiasahlin" aria-label="View my GitHub profile"><span class="contact-icon"><svg class="case-item-icon icon-github" fill="#fff" xmlns="http://www.w3.org/2000/svg" width="62" height="60" viewBox="0 0 62 60"><path d="M31 0a30.7 30.7 0 0 0-9.8 59.9c1.55.3 2.116-.6 2.116-1.4s-.026-2.7-.042-5.3c-8.622 1.9-10.44-4.1-10.44-4.1-1.414-3.5-3.448-4.5-3.448-4.5-2.815-1.9.213-1.9.213-1.9a6.74 6.74 0 0 1 4.746 3.2c2.766 4.7 7.254 3.3 9.023 2.6a6.3 6.3 0 0 1 1.966-4.1c-6.88-.8-14.12-3.5-14.12-15.2a11.964 11.964 0 0 1 3.193-8.3 10.9 10.9 0 0 1 .3-8.1s2.6-.9 8.525 3.1a30.617 30.617 0 0 1 15.522 0c5.92-4 8.517-3.1 8.517-3.1a10.886 10.886 0 0 1 .308 8.1 11.946 11.946 0 0 1 3.186 8.3c0 11.8-7.248 14.4-14.155 15.1a7.52 7.52 0 0 1 2.1 5.7c0 4.1-.04 7.5-.04 8.5 0 .8.56 1.7 2.13 1.4A30.708 30.708 0 0 0 31 0"/></svg></span></a>
+      <a class="contact-link contact-link-twitter" href="https://twitter.com/tobiasahlin" aria-label="View my Twitter profile"><svg class="contact-icon twitter-icon-svg" fill="#fff" xmlns="http://www.w3.org/2000/svg" width="60" height="49" viewBox="0 0 60 49"><path d="M60 5.8a32.794 32.794 0 0 1-7.02 2A12.573 12.573 0 0 0 58.416.9a22.046 22.046 0 0 1-7.924 3A11.967 11.967 0 0 0 41.435 0 12.256 12.256 0 0 0 29.21 12.4a11.72 11.72 0 0 0 .225 2.8A34.736 34.736 0 0 1 4.075 2.1 11.406 11.406 0 0 0 2.49 8.3a12.24 12.24 0 0 0 5.436 10.3 12.607 12.607 0 0 1-5.66-1.6v.3a12.426 12.426 0 0 0 9.96 12.1 11.632 11.632 0 0 1-3.168.5 7.87 7.87 0 0 1-2.265-.2 12.483 12.483 0 0 0 11.548 8.7 23.817 23.817 0 0 1-15.4 5.3A14.578 14.578 0 0 1 0 43.5 35.742 35.742 0 0 0 18.79 49c22.64 0 35.094-19.1 35.094-35.7v-1.6a16.4 16.4 0 0 0 6.113-5.9z"/></svg></a>
+    </div>
+
+    <div class="contact-picture">
+      <img src="../../images/profile.jpg" class="contact-picture-img" width="1160" height="1160" loading="lazy">
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
+

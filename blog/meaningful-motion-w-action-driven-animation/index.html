@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<link rel="preconnect" href="https://srv.carbonads.net/" crossorigin>
+<link rel="preconnect" href="https://cdn4.buysellads.net/" crossorigin>
+
+	  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <meta property="og:title" content="Meaningful Motion with Action-Driven Animation" />
+  <meta property="og:description" content="Simple guiding principles for making animations more meaningful" />
+  <meta property="og:url" content="https://tobiasahlin.com/blog/meaningful-motion-w-action-driven-animation/" />
+  <meta property="og:type" content="blog" />
+  <meta property="og:image" content="https://tobiasahlin.com/static/-social/og_blog-meaningful-motion-w-action-driven-animation.jpg" />
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tobiasahlin" />
+  <meta name="twitter:creator" content="@tobiasahlin" />
+
+  <meta name="description" content="Simple guiding principles for making animations more meaningful" />
+  <meta name="keywords" content=", tobias ahlin, github, spotify, hyper island" />
+
+	<title>
+    Meaningful Motion with Action-Driven Animation | Tobias Ahlin
+  </title>
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon" />
+  <link rel="alternate" type="application/rss+xml"  href="../../feed.xml" title="Blog RSS Feed">
+  <link rel="apple-touch-icon" href="../../images/touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../../images/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../../images/touch-icon-iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../../images/touch-icon-ipad-retina.png">
+  <link rel="stylesheet" href="../../css/site.css">
+
+
+  <script src="../../js/anime.min.js"></script>
+	
+<script type="text/javascript" src="../../js/app.js@v=1"></script>
+
+<script defer type="text/javascript" src="../../js/post.js"></script>
+
+
+<script>
+	// Clear localStorage if number of posts have changed
+	app.search.postCountKey = "postCount";
+	var postCountCached = parseInt(localStorage.getItem(app.search.postCountKey));
+	var postCount = 126;
+
+	// If number of posts have changed, clear cache
+	if (postCount != postCountCached) { localStorage.clear(); }
+	localStorage.setItem(app.search.postCountKey, 126); 
+</script>
+</head>
+<body class="layout-post">
+
+<div class="site-header site-header-post">
+  <canvas class="site-nav-canvas"></canvas>
+<button class="js-menu menu button-clear " aria-label="Site navigation">
+  <span class="menu-icon-line-1 menu-icon-line"></span>
+  <span class="menu-icon-line-2 menu-icon-line"></span>
+  <span class="menu-icon-line-3 menu-icon-line"></span>
+</button>
+
+<div class="site-nav-overlay js-nav">
+  <div class="nav-content">
+    <div class="js-nav-header nav-header">
+      <span class="nav-header-text">Tobias Ahlin</span>
+      <div class="nav-header-line js-nav-header-line"></div>
+    </div>
+
+    <ul class="nav-categories">
+      <li class="nav-category js-nav-animate"><a href="../../index.html" class="nav-link">Overview</a></li>
+      <li class="nav-category js-nav-animate"><a href="../index.html" class="nav-link">Blog</a></li>
+      <li class="nav-category js-nav-animate"><a href="../tutorials/index.html" class="nav-link">Tutorials</a></li>
+      <li class="nav-category js-nav-animate"><a href="../../speaking/index.html" class="nav-link">Speaking</a></li>
+    </ul>
+
+    <div class="nav-sublinks js-nav-animate">
+      <div class="js-nav-animate">
+      <a class="nav-link nav-sublink" href="../../moving-letters/index.html">Moving Letters</a>
+      <a class="nav-link nav-sublink" href="../../typesource.1.html">TypeSource</a>
+      <a class="nav-link nav-sublink" href="../../spinkit/index.html">SpinKit</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <h1 class="site-name site-name-post">
+  <a class="siteLogoLink  site-name-link-parent" href="../../index.html" aria-label="Start page">
+  <svg  class="siteHead-logoMark"  width="1022" height="482" viewBox="0 0 1022 482" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M634.184 481.999L567.587 379.929L500.99 481.999H247.355L573.255 0L886.402 481.999H634.184ZM198.374 198.47H0V0H518.605L198.374 472.076V198.47Z" />
+<path d="M626.67 0C626.67 0 848.8 0 962.621 0C978.369 0 993.472 6.26031 1004.61 17.3996C1015.74 28.5423 1022 43.6521 1022 59.4083C1022 152.061 1022 329.939 1022 422.592C1022 438.348 1015.74 453.458 1004.61 464.6C993.472 475.74 978.369 482 962.621 482H939.816L626.67 0Z" />
+</svg>
+</a>
+  
+    <a class="site-name-link" href="../index.html">Blog</a>
+  
+</h1>
+  <button class="site-search js-search button-clear" aria-label="Search site">
+  <span class="site-search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 38.96 41.469">
+  <circle class="site-search-icon-circle" fill="none" stroke-width="4px" cx="16.465" cy="16.484" r="14.465"/>
+  <path class="site-search-icon-line" d="M2791.72,95.441l3.03-3.034,13.1,13.968-3.03,3.034Z" transform="translate(-2768.88 -67.938)"/>
+</svg>
+</span>
+  <span class="site-search-close-icon">
+    <span class="site-search-close-icon-line site-search-close-icon-line-1"></span>
+    <span class="site-search-close-icon-line site-search-close-icon-line-2"></span>
+  </span>
+</button>
+
+<div class="js-search-overlay site-nav-overlay-search">
+  <div class="site-search-content">
+    <input placeholder="Search…" type="text" class="js-search-input siteSearchInput">
+    <div class="site-search-content-results js-site-search-content-results">
+      <div class="site-search-content-results-list"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="single-post">
+	<div class="single-post-head" style="background-color: #2b2f3c">
+			<h1 class="post-header" >Meaningful Motion with Action-Driven Animation</h1>
+
+			<div class="carbon-ad-container">
+<script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=tobiasahlincom" id="_carbonads_js"></script>
+</div>
+	</div>
+	
+	<div class="article article-single">
+		<div class="blog-banner">
+  <div class="blog-banner-content">
+    <div class="post-ada-container">
+      <div class="post-ada-window">
+        <div class="post-ada-message">Do something?</div>
+        <div class="post-ada-button post-ada-button-cancel">Cancel<div class="post-ada-button-overlay"></div></div>
+        <div class="post-ada-button post-ada-button-ok">Do it<div class="post-ada-button-overlay"></div></div>
+      </div>
+      <img src="../../static/cursor.png" width="30" class="post-ada-cursor" />
+    </div>
+  </div>
+</div>
+<style>
+.post-ada-container {
+  width: 100px;
+  height: 80px;
+  position: relative;
+  display: inline-block;
+  color: #000;
+}
+.post-ada-window {
+    border-radius: 3px;
+    background-color: #fff;
+    text-align: center;
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-family: SF UI, SF Display, Helvetica Neue, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    transform: translateZ(0);
+    overflow: hidden;
+}
+.post-ada-message { padding-top: 15px; transform: translateZ(0); }
+.post-ada-button {
+  position: absolute;
+  bottom: 0;
+  height: 20px;
+  background-color: #e5e5e5;
+  border-top: 1px solid #cecece;
+  width: 50%;
+  line-height: 20px;
+  padding-bottom: 1px;
+}
+.post-ada-button-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0;
+}
+.post-ada-button-cancel { left: 0; }
+.post-ada-button-ok { right: 0; border-left: 1px solid #cecece; }
+.post-ada-container .post-ada-cursor { position: absolute; bottom: -25px; right: -18px; }
+
+</style>
+
+<script>
+// Post icon animation
+var postIconTimeline = anime.timeline({ loop: true });
+postIconTimeline
+  .add({
+    targets: '.post-ada-cursor',
+    translateX: "-75px",
+    easing: "easeOutBack",
+    duration: 400,
+    delay: 100
+  }).add({
+    // Press button
+    targets: '.post-ada-button-cancel .post-ada-button-overlay',
+    opacity: [0, 0.3],
+    easing: 'easeOutExpo',
+    duration: 100
+  }).add({
+    // Press button
+    targets: '.post-ada-button-cancel .post-ada-button-overlay',
+    opacity: [0.3, 0],
+    easing: 'easeOutExpo',
+    duration: 100
+  }).add({
+    // Shrink modal
+    targets: '.post-ada-window',
+    scale: 0.7,
+    opacity: 0,
+    easing: "easeOutExpo",
+    duration: 600
+  }).add({
+    // Reveal modal
+    targets: '.post-ada-window',
+    scale: 1,
+    opacity: 1,
+    easing: "easeOutExpo",
+    duration: 600,
+    delay: 1000
+  }).add({
+    // Move cursor
+    targets: '.post-ada-cursor',
+    translateX: "0px",
+    easing: "easeOutBack",
+    duration: 400,
+    delay: 100
+  }).add({
+    // Press button
+    targets: '.post-ada-button-ok .post-ada-button-overlay',
+    opacity: [0, 0.3],
+    easing: 'easeOutExpo',
+    duration: 100,
+    delay: 200
+  }).add({
+    // Press button
+    targets: '.post-ada-button-ok .post-ada-button-overlay',
+    opacity: [0.3, 0],
+    easing: 'easeOutExpo',
+    duration: 100
+  }).add({
+    // Expand modal
+    targets: '.post-ada-window',
+    scale: 1.3,
+    opacity: 0,
+    easing: "easeOutExpo",
+    duration: 600
+  }).add({
+    // Reveal modal
+    targets: '.post-ada-window',
+    scale: [0.6, 1],
+    opacity: 1,
+    easing: "easeOutExpo",
+    duration: 600,
+    delay: 1000
+  });
+app.animations.track(postIconTimeline, document.querySelector(".post-ada-window"));
+</script>
+
+<!--more-->
+
+<p>How do we animate interfaces in ways that are not just beautiful, but meaningful? When we add motion to interfaces, we want to in one way or another improve the user experience, be it through aiding the comprehension of a concept, setting the mood, enhancing the perception of speed, or directing attention. Regardless of the intent of the animation, when animations fail to be meaningful, a common cause is that they simply tween between their hidden and visible states, rather than visualizing the actions that triggered the change of state. A window rarely just closes or opens; a message is sent, a draft is discarded, an item is used.</p>
+
+<p>We can call these two ways of animating <em>state-driven animation</em> and <em>action-driven animation</em>. By applying action-driven animation you can catch yourself in the act of creating an animation that’s not as meaningful as it could be. Are you simply transitioning between states, or are you visualizing actions?  Meaningful motion is about clear and engaging storytelling, and we can apply action-driven animation to remind ourselves when we’re straying from that path.</p>
+
+<h2 id="state-driven-animation">State-driven animation</h2>
+
+<p>Let’s take a look at a basic example of state-driven animation vs. action-driven animation: interacting with a modal. This is a simulation of state-driven animation being applied to a modal:</p>
+
+<div class="post-demo-content post-ada-canvas">
+  <div class="post-ada-content ada-modal-sda">
+    <div class="post-ada-pause-play post-ada-pause-play-1"></div>
+    <div class="post-ada-modal">
+      <div class="post-ada-modal-message">Do you wish to do something?</div>
+      <div class="post-ada-modal-button post-ada-modal-button-left">Cancel<div class="post-ada-modal-button-overlay"></div></div>
+      <div class="post-ada-modal-button post-ada-modal-button-right">Do thing<div class="post-ada-modal-button-overlay"></div></div>
+    </div>
+  </div>
+</div>
+
+<p>As the modal appears, it fades in. Whatever button is pushed, it fades out again. What’s wrong with this animation? Fading between hidden and visible doesn’t communicate what’s happening on screen, other than emphasizing that an object is being shown or hidden. The user is also triggering an action. Rather than only morphing between states, we can use motion to reinforce what action is being triggered.</p>
+
+<h2 id="action-driven-animation">Action-driven animation</h2>
+
+<p>Here’s is a simulation of action-driven animation being applied to the same modal:</p>
+
+<div class="post-demo-content post-ada-canvas">
+  <div class="post-ada-content ada-modal-ada">
+    <div class="post-ada-pause-play post-ada-pause-play-2"></div>
+    <div class="post-ada-modal">
+      <div class="post-ada-modal-message">Do you wish to do something?</div>
+      <div class="post-ada-modal-button post-ada-modal-button-left">Cancel<div class="post-ada-modal-button-overlay"></div></div>
+      <div class="post-ada-modal-button post-ada-modal-button-right">Do thing<div class="post-ada-modal-button-overlay"></div></div>
+    </div>
+  </div>
+</div>
+
+<p>Try to ignore for the moment the aesthetics of the two: what does the second animation convey that the first one does not? In the first example, we use two different animations with state-driven animation: fading in and fading out. Clicking <em>Cancel</em> and clicking <em>Do it</em> both trigger the fade-out animation. In other words, the only thing we’re differentiating between is the <em>states</em> of the modal: hidden vs. visible.</p>
+
+<p>On the other hand, in the second example, we’ve got three different animations, and we differentiate between the two <em>actions</em> by playing different animations depending on the chosen option. On <em>Cancel</em>, we clearly show that the modal is being canceled by scaling it down and fading it out, sending it back to where it came from. When the affirmative action is selected (<em>Do thing</em>), we do the opposite: scale it up and fade it out, bringing it closer to the user. In other words, we’re not only differentiating between states but <em>how you travel between those states</em>, i.e., what actions are being performed.</p>
+
+<p>It’s common to think of apps as a series of views or states, and animations as ways to travel between those states. Take this Email app and two of its states:</p>
+
+<p><img src="../../static/action-driven-animation/state-driven-animation.png" alt="Illustrated example of state-driven animation, showing the transition between two states of an email app; the main window with a composing window overlaying it (state A), and after closing it, just the main window (state b)" /></p>
+
+<p>It’s easy to forget to show <em>how</em> these states are connected and always use the same transition to animate between states, regardless of the action being taken. Rule of thumb: if your methods are called something like <code class="language-plaintext highlighter-rouge">showWindow()</code> and <code class="language-plaintext highlighter-rouge">hideWindow()</code>, or if you’re only animating <code class="language-plaintext highlighter-rouge">opacity</code>, you’re leaving your users in the dark to figure out exactly what happened. They’ll see that something changed, but not what caused that change. It’s sort of like leaving a party without saying goodbye; the host won’t know if you hated the party or just had to run home to do your laundry.</p>
+
+<p>Action-driven animation elevates <em>the connections between the views</em> to become the plots of the storytelling arhcs. In other words, what took you between state and A and state B? In our Email app, you can get between state A (composing visible) and state B (composing hidden) in at least two different ways: sending an email or discarding an email and closing the window.</p>
+
+<p><img src="../../static/action-driven-animation/action-driven-animation.png" alt="Illustrated example of action-driven animation, showing two different animations between two states of an email app; you can hide the compose window either by sending an email, or by discarding an email" /></p>
+
+<p>You’ll make your app easier to understand by visualizing whatever caused the change of state. Creating a unique animation for every action can help users differentiate between different action paths and help them intuitively gain a deeper understanding of the events unfolding on screen.</p>
+
+<h2 id="when-state-driven-animation-fails">When state-driven animation fails</h2>
+
+<p>A while back, just before giving a talk on UI animation at a conference in Prague, I was stumped by an animation used by Tumblr. Before continuing, I want to emphasize that I have a deep respect for the Tumblr design team—they’ve produced some admirable designs. I have featured their work as examples to be inspired by on several occasions. That said, something went wrong in this specific instance.</p>
+
+<p>I had just signed up for a new Tumblr account and was getting ready to make my first post. But for some reason, whatever I posted kept disappearing as I hit <em>Post</em>:</p>
+
+<video playsinline="" controls="" width="900" poster="../../static/action-driven-animation/posters/tumblr.jpg">
+  <source src="../../static/action-driven-animation/tumblr-fail.mp4" type="video/mp4" />
+  <source src="../../static/action-driven-animation/tumblr-fail.webm" type="video/webm" />
+</video>
+
+<p>Or, as you can see towards the end of the clip, that’s not at all what happened. Whatever option I selected, <em>Close</em> and <em>Post</em> both triggered the same animation (except for a spinner showing up briefly inside the Post button when I selected <em>Post</em>). Nothing hinted that I had successfully posted something. The post section just disappeared.</p>
+
+<p>What’s gone wrong here? At first sight, this animation looks meaningful and helpful. But again, we’re just morphing between two states rather than visualizing the actions unfolding on the screen. Cancelling a post and successfully posting are two fundamentally different actions, yet they share the same animation. In this instance, state-driven animation doesn’t just fail to be meaningful—it’s causing confusion and obfuscating what’s happening.</p>
+
+<p>To be fair to Tumblr, the issue is in this instance is being amplified by the Dashboard onboarding that’s floating just below the navigation, pushing down new posts below the fold. But regardless of the unlucky circumstances, we can improve the animation by moving from state-driven animation to action-driven animation. Rather than only transitioning between the two states of the posting section (visible and hidden), the action of posting could be associated with an animation that clearly transitions between you writing a post, to the post being published.</p>
+
+<h2 id="applying-action-driven-animation">Applying action-driven animation</h2>
+
+<p>So how do you go about using action-driven animation to improve the animations of your product? I’ve mocked up a dummy email app (shown previously in the email illustration above). Let’s look closer at the actions related to working with a message and move from state-driven animation to action-driven animation together.</p>
+
+<p>Let’s list all important actions in the part of the app we’re working with, rather than all views. There are only two views involved in working with a message in our Email app, but four different actions. You can:</p>
+
+<ol>
+  <li>Create a new message</li>
+  <li>Send the message</li>
+  <li>Discard the message</li>
+  <li>Close the message and save it as a draft</li>
+</ol>
+
+<p>If we just faded between the different views, this is what it would look like working with the app (going through the different actions in the order above):</p>
+
+<video playsinline="" width="900" controls="" poster="../../static/action-driven-animation/posters/state-driven-animation.jpg">
+  <source src="../../static/action-driven-animation/email-fade.webm" type="video/webm" />
+  <source src="../../static/action-driven-animation/email-fade.mp4" type="video/mp4" />
+</video>
+
+<p>To create more meaningful animations, we need to look critically at every fade and ask ourselves: what actions are being taken?</p>
+
+<h3 id="choosing-a-storytelling-axis">Choosing a storytelling axis</h3>
+
+<p>Before we create a unique animation for every action, let’s settle on a primary axis to weave our storytelling around. If you’re interacting with something that will affect yourself or the user directly (e.g., a modal asking you if you want to continue), the Z-axis is usually the best choice. Suppose we weave our storytelling around the Z-axis as we did in our modal example earlier. In that case, we can make the modal move closer towards you as you choose an affirmative action (scaling up the modal,  as if it lifts off the screen and travels towards you), and we can make it move away from you as you dismiss it. The Z-axis reinforces that the modal relates to <em>you</em>.</p>
+
+<p>When you’re interacting with something that relates to someone else, like an email message that you’re about to send off to someone, your best choice of a primary axis is usually the Y-axis. By moving something rapidly upwards along the Y-axis and making it exit the screen while still accelerating away from you, we reinforce the concept of you sending off something to someone else. It’s almost as if you’re taking an envelope and sending it off to its next destination. Or as if you’re using a salmon cannon:</p>
+
+<p><img src="../../static/action-driven-animation/cannon-1.gif" width="900" /></p>
+
+<p><img src="../../static/action-driven-animation/cannon-2.gif" width="900" /></p>
+
+<p>Since we’re working with an email message here that we’ll eventually send off to someone else, let’s pick the Y-axis as our primary axis. What that in mind, let’s break down every action and animation before reviewing it all together.</p>
+
+<h3 id="creating-a-new-email">Creating a new email</h3>
+
+<p>Rather than only fading in a new message once you create it, we can animate the window to make it appear like we’re summoning a new message from below:</p>
+
+<video playsinline="" controls="" width="900" poster="../../static/action-driven-animation/posters/new-message.jpg">
+  <source src="../../static/action-driven-animation/new-message-animated.webm" type="video/webm" />
+  <source src="../../static/action-driven-animation/new-message-animated.mp4" type="video/mp4" />  
+</video>
+
+<p>This transition is not much more meaningful than only fading in and out, but it starts to get interesting as we add the other animations that are clearly different but connected to the same storyline.</p>
+
+<h3 id="discarding-a-message">Discarding a message</h3>
+
+<p>Once you discard an email, we can make it fall back down, returning it to where it came from. Here I’m also applying a slight tilt to the window on its way down to illustrate that you’re throwing it away (rather than storing it somewhere). As if you’re dropping a piece of paper, rather than putting it away neatly:</p>
+
+<video playsinline="" controls="" width="900" poster="../../static/action-driven-animation/posters/close.jpg">
+  <source src="../../static/action-driven-animation/new-close-animated.webm" type="video/webm" />
+  <source src="../../static/action-driven-animation/new-close-animated.mp4" type="video/mp4" />
+</video>
+
+<h3 id="sending-a-message">Sending a message</h3>
+
+<p>Once you hit send, let’s shoot it off, away from us (and hopefully towards a recipient):</p>
+
+<video playsinline="" controls="" width="900" poster="../../static/action-driven-animation/posters/send.jpg">
+  <source src="../../static/action-driven-animation/new-send-animated.webm" type="video/webm" />
+  <source src="../../static/action-driven-animation/new-send-animated.mp4" type="video/mp4" />
+</video>
+
+<p>With those three actions visualized in distinctly different ways, we’re now telling a clear story about how messages are created, discarded, and sent off. Even though you might not infer the meaning of all the animations at first sight (they’re not necessarily intuitive), they’re clearly different and connected to an action each, and you can at the very least learn how to tell the different animations apart.</p>
+
+<h3 id="saving-as-a-draft">Saving as a draft</h3>
+
+<p>We’ve got one more action to cover. Saving a draft is crucially <em>not</em> the same thing as closing the window and discarding an email. Again, we’re dealing with actions, not states. It’s not a matter of showing or hiding objects; it’s a matter of visualizing the events unfolding on screen.</p>
+
+<p>If we try to close the new message window while writing a message, we’re asked if we want to discard the email or save it as a draft. Given that someone chooses “Save as draft,” what’s important to convey? At least two things, 1) that the message is being saved as a draft somewhere, and 2) exactly where that somewhere is. We want users of our app to understand where they can find that draft later so that they can send it when the time is right:</p>
+
+<video playsinline="" controls="" width="900" poster="../../static/action-driven-animation/posters/save-draft.jpg">
+  <source src="../../static/action-driven-animation/save-draft-animated.webm" type="video/webm" />
+  <source src="../../static/action-driven-animation/save-draft-animated.mp4" type="video/mp4" />
+</video>
+
+<p>This animation clearly shows how your message gets stored in your outbox, and it even tells you where your outbox is located! We’ve restricted ourselves to animating along the Y-axis up to this point to enforce the concept of <em>creating something and sending it off</em>. Now that we’re deviating from that storyline and storing a message, we can drop the axis restriction and shrink the message while we move it towards the outbox icon.</p>
+
+<p>To make it clear that we’re storing the message inside the outbox (and not just shrinking and hiding the message window), we’re adding another effect: as the message window arrives at the outbox icon, we make the outbox icon grow with a slight bounce effect (as if it swallows the message), and we add a small counter indicating that your number of saved drafts just increased from 0 to 1. This animation doesn’t just tell you what events are being triggered: it teaches you how the app works and how to navigate it.</p>
+
+<h3 id="review-before--after">Review: before &amp; after</h3>
+
+<p>Before we started applying action-driven animation, we faded views in and out. These animations looked a bit better than simply popping views in and out of view, but the animations didn’t add much value in terms of helping users understand which events were unfolding on screen. This is an example of state-driven animation, and it looked like this:</p>
+
+<video playsinline="" controls="" width="900" poster="../../static/action-driven-animation/posters/state-driven-animation.jpg">
+  <source src="../../static/action-driven-animation/email-fade.webm" type="video/webm" />
+  <source src="../../static/action-driven-animation/email-fade.mp4" type="video/mp4" />
+</video>
+
+<p>After critically reviewing every animation and asking ourselves what each animation should convey and how best to do so, we iterated on the experience and created a set of animations that each conveys what events are unfolding on screen. We did so with the help of action-driven animation, which helps us identify the number of animations that we need to create through its focus on possible action paths rather than on possible states. After applying action-driven animation, this is what our prototype looks like:</p>
+
+<video playsinline="" controls="" width="900" poster="../../static/action-driven-animation/posters/action-driven-animation.jpg">
+  <source src="../../static/action-driven-animation/all-animated.webm" type="video/webm" />
+  <source src="../../static/action-driven-animation/all-animated.mp4" type="video/mp4" />
+</video>
+
+<h2 id="summary">Summary</h2>
+
+<p>We divided UI animations into two different models: <strong>state-driven animation</strong> and <strong>action-driven animation</strong>. I argued that the first model tends to produce animations that lack any significant meaning; they are not helpful. I presented an example from Tumblr to illustrate how state-driven animation can, even when it looks beautiful, miscommunicate and cause confusion.</p>
+
+<p>I argued that a better way to work with animations is to focus on the actions or events that are being triggered, which I call <strong>action-driven animation</strong>. We reviewed how this technique can be applied to a modal and an email app and how it aids users in understanding what actions and events are unfolding before them, but also how the app works and how to navigate it.</p>
+
+<p>Action-driven animation is a way of thinking about motion that you can apply to review the interface animations of an app or product to create more meaningful animations. I’ve found it useful to use in my work, and I hope you will, too.</p>
+
+<h3 id="technical-details">Technical details</h3>
+
+<p>Although no code has been shared in this post, all of the examples that I created are animated with the lovely <a href="http://anime-js.com">anime.js library</a> (by <a href="http://juliangarnier.com">Julian Garnier</a>). If you want to play around with the email prototype and its animations, feel free to <a href="../../static/action-driven-animation/email-prototype.zip">download all the example code</a> and have a look around. All icons are from <a href="https://material.io/icons/">Google’s Material</a>.</p>
+
+<h3 id="related-posts">Related posts</h3>
+
+<ul>
+  <li><a href="../curved-path-animations-in-css/index.html">Moving along a curved path in CSS with layered animation</a></li>
+  <li><a href="../how-to-animate-box-shadow/index.html">How to animate “box-shadow” with silky smooth performance</a></li>
+  <li><a href="../../spinkit/index.html">SpinKit: Simple spinners animated with CSS</a></li>
+</ul>
+
+<style>
+.post-ada-canvas {
+  background-color: #2b2f3c;
+  display: block;
+  border: 0;
+}
+
+.post-ada-content {
+  height: 500px;
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.post-ada-pause-play {
+  width: 42px;
+  height: 42px;
+  background-color: #000;
+  opacity: 0.3;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 30px;
+}
+.post-ada-pause-play:active { opacity: 0.5; }
+.post-ada-pause-play::after {
+  content: "";
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  background-image: url(../../static/play.svg); 
+  background-size: contain;
+}
+.post-ada-pause-play::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  background-image: url(../../static/pause.svg);
+  background-size: contain;
+}
+.post-ada-pause-play.state-is-paused::after {
+  display: block;
+}
+.post-ada-pause-play.state-is-paused::before {
+  display: none;
+}
+.post-ada-modal {
+  font-family: SF UI, SF Display, Helvetica Neue, Arial, sans-serif;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+  border-radius: 5px;
+  height: 200px;
+  width: 300px;
+  max-width: 100%;
+  text-align: center;
+  cursor: default;
+  overflow: hidden;
+}
+.post-ada-modal-message {
+  padding-top: 65px;
+}
+.post-ada-modal-button {
+  border-top: 1px solid #cecece;
+  height: 40px;
+  line-height: 40px;
+  position: absolute;
+  width: 50%;
+  bottom: 0;
+  overflow: hidden;
+}
+.post-ada-modal-button-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0;
+}
+.post-ada-modal-button-left { left: 0; }
+.post-ada-modal-button-right {
+  right: 0;
+  border-left: 1px solid #cecece;
+}
+</style>
+
+<script>
+// Animation 1 - state-driven animation
+var stateDrivenModalTimeline = anime.timeline({ loop: true });
+stateDrivenModalTimeline
+  .add({
+    targets: '.ada-modal-sda .post-ada-modal-button-left .post-ada-modal-button-overlay',
+    opacity: [0, 0.3],
+    easing: 'easeOutExpo',
+    duration: 100
+  })
+  .add({
+    targets: '.ada-modal-sda .post-ada-modal-button-left .post-ada-modal-button-overlay',
+    opacity: [0.3, 0],
+    easing: 'easeOutExpo',
+    duration: 100
+  })
+  .add({
+    targets: '.ada-modal-sda .post-ada-modal',
+    opacity: 0,
+    easing: 'easeOutExpo',
+    delay: 200
+  })
+  .add({
+    targets: '.ada-modal-sda .post-ada-modal',
+    opacity: 1,
+    easing: 'easeOutExpo',
+    delay: 400
+  })
+  .add({
+    targets: '.ada-modal-sda .post-ada-modal-button-right .post-ada-modal-button-overlay',
+    opacity: [0, 0.3],
+    easing: 'easeOutExpo',
+    duration: 100
+  })
+  .add({
+    targets: '.ada-modal-sda .post-ada-modal-button-right .post-ada-modal-button-overlay',
+    opacity: [0.3, 0],
+    easing: 'easeOutExpo',
+    duration: 100
+  })
+  .add({
+    targets: '.ada-modal-sda .post-ada-modal',
+    opacity: 0,
+    easing: 'easeOutExpo',
+    delay: 200
+  })
+  .add({
+    targets: '.ada-modal-sda .post-ada-modal',
+    opacity: 1,
+    easing: 'easeOutExpo',
+    delay: 400
+  });
+
+// Animation 2 - action driven animation
+var actionDrivenModalTimeline = anime.timeline({ loop: true });
+actionDrivenModalTimeline
+  .add({
+    targets: '.ada-modal-ada .post-ada-modal-button-left .post-ada-modal-button-overlay',
+    opacity: [0, 0.3],
+    easing: 'easeOutQuad',
+    delay: 300,
+    duration: 100
+  }).add({
+    targets: '.ada-modal-ada .post-ada-modal-button-left .post-ada-modal-button-overlay',
+    opacity: [0.3, 0],
+    easing: 'easeOutQuad',
+    duration: 100
+  }).add({
+    targets: '.ada-modal-ada .post-ada-modal',
+    opacity: 0,
+    scale: 0.8,
+    easing: 'easeInQuad',
+    duration: 400
+  }).add({
+    targets: '.ada-modal-ada .post-ada-modal',
+    opacity: 1,
+    scale: [0.5, 1],
+    easing: 'easeOutQuad',
+    duration: 500,
+    delay: 600
+  }).add({
+    targets: '.ada-modal-ada .post-ada-modal-button-right .post-ada-modal-button-overlay',
+    opacity: [0, 0.3],
+    easing: 'easeOutQuad',
+    delay: 200,
+    duration: 100
+  }).add({
+    targets: '.ada-modal-ada .post-ada-modal-button-right .post-ada-modal-button-overlay',
+    opacity: [0.3, 0],
+    easing: 'easeOutQuad',
+    duration: 100
+  }).add({
+    targets: '.ada-modal-ada .post-ada-modal',
+    opacity: 0,
+    scale: 1.2,
+    duration: 400,
+    easing: 'easeInQuad'
+  }).add({
+    targets: '.ada-modal-ada .post-ada-modal',
+    opacity: 1,
+    scale: [0.5, 1],
+    easing: 'easeOutQuad',
+    duration: 400,
+    delay: 600
+  });
+
+// Wire up play buttons with animations
+document.querySelector('.post-ada-pause-play-1').onclick = function() {pausePlayAnimation(stateDrivenModalTimeline, this)};
+document.querySelector('.post-ada-pause-play-2').onclick = function() {pausePlayAnimation(actionDrivenModalTimeline, this)};
+
+// Helper function
+function pausePlayAnimation(timeline, e) {
+  if (timeline.paused) {
+    timeline.play();
+    e.classList.remove("state-is-paused");
+  } else {
+    timeline.pause();
+    e.classList.add("state-is-paused");
+  }
+}
+
+</script>
+
+
+	</div>
+</div>
+
+<div class="section section-dense">
+  <h2 class="section-header section-header-small">Published in:</h2>
+  <div class="section-content post-categories-content" style="background-color: #2b2f3c">
+    <div class="post-categories-links" >
+      
+        <a class="post-categories-link" href="../animation/index.html">animation</a> <span class="post-categories-link-divider">/</span>
+      
+        <a class="post-categories-link" href="../design/index.html">design</a> <span class="post-categories-link-divider">/</span>
+      
+        <a class="post-categories-link" href="../tutorial/index.html">tutorial</a>
+      
+    </div>
+    <span class="section-header section-header-small post-categories-date">16/05/2017</span>
+  </div>
+</div>
+<div class="newsletter-signup section section-dense">
+
+  <h2 class="section-header section-header-subscribe">Subscribe.</h2>
+  <div id="mc_embed_signup" class="newsletter-signup-container">
+    <div class="section-content newsletter-content newsletter-content-left">
+      <h3 class="grid-item-header grid-item-header-left">Get new posts delivered to your inbox</h3>
+      <div class="grid-item-divider grid-item-divider-left"></div>
+      <p class="grid-item-text grid-item-text-left">They're not frequent, promise ✌️ you can also <a href="../../feed.xml">subscribe to the RSS feed</a>.</p>
+    </div>
+
+    <div class="section-content newsletter-content newsletter-content-right">
+      <form action="https://tobiasahlin.us6.list-manage.com/subscribe/post?u=b53336ca4dca0dadf0c41405a&amp;id=a3482fb718" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+          <div class="mc-field-group">
+            <label for="mce-EMAIL">email@example.com</label>
+            <input type="email" placeholder="email@example.com" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+            <div class="newsletter-input-border"></div>
+          </div>
+          <div id="mce-responses">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_b53336ca4dca0dadf0c41405a_a3482fb718" tabindex="-1" value=""></div>
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="newsletter-signup-button">
+        </div>
+      </form>
+    </div>
+
+    
+  </div>
+</div>
+<div class="section contact-card">
+  <h2 class="section-header">Say hi.</h2>
+
+  <div class="contact-info">
+    <a class="grid-item-header grid-item-header-left" href="mailto:hello@tobiasahlin.com">hello@<br>tobiasahlin.com</a>
+
+    <div class="grid-item-divider grid-item-divider-left"></div>
+    <p class="grid-item-text grid-item-text-left">I love to design and make things. I speak, teach, and consult at tech companies and startups, e.g. Spotify, Minecraft, GitHub, and Hyper Island. <a href="https://twitter.com/tobiasahlin">Say hi!</a><br><br>
+
+    Tobias Ahlin Bjerrome <br>Stockholm, Sweden</p>
+
+    <div class="contact-links">
+      <a class="contact-link" href="https://github.com/tobiasahlin" aria-label="View my GitHub profile"><span class="contact-icon"><svg class="case-item-icon icon-github" fill="#fff" xmlns="http://www.w3.org/2000/svg" width="62" height="60" viewBox="0 0 62 60"><path d="M31 0a30.7 30.7 0 0 0-9.8 59.9c1.55.3 2.116-.6 2.116-1.4s-.026-2.7-.042-5.3c-8.622 1.9-10.44-4.1-10.44-4.1-1.414-3.5-3.448-4.5-3.448-4.5-2.815-1.9.213-1.9.213-1.9a6.74 6.74 0 0 1 4.746 3.2c2.766 4.7 7.254 3.3 9.023 2.6a6.3 6.3 0 0 1 1.966-4.1c-6.88-.8-14.12-3.5-14.12-15.2a11.964 11.964 0 0 1 3.193-8.3 10.9 10.9 0 0 1 .3-8.1s2.6-.9 8.525 3.1a30.617 30.617 0 0 1 15.522 0c5.92-4 8.517-3.1 8.517-3.1a10.886 10.886 0 0 1 .308 8.1 11.946 11.946 0 0 1 3.186 8.3c0 11.8-7.248 14.4-14.155 15.1a7.52 7.52 0 0 1 2.1 5.7c0 4.1-.04 7.5-.04 8.5 0 .8.56 1.7 2.13 1.4A30.708 30.708 0 0 0 31 0"/></svg></span></a>
+      <a class="contact-link contact-link-twitter" href="https://twitter.com/tobiasahlin" aria-label="View my Twitter profile"><svg class="contact-icon twitter-icon-svg" fill="#fff" xmlns="http://www.w3.org/2000/svg" width="60" height="49" viewBox="0 0 60 49"><path d="M60 5.8a32.794 32.794 0 0 1-7.02 2A12.573 12.573 0 0 0 58.416.9a22.046 22.046 0 0 1-7.924 3A11.967 11.967 0 0 0 41.435 0 12.256 12.256 0 0 0 29.21 12.4a11.72 11.72 0 0 0 .225 2.8A34.736 34.736 0 0 1 4.075 2.1 11.406 11.406 0 0 0 2.49 8.3a12.24 12.24 0 0 0 5.436 10.3 12.607 12.607 0 0 1-5.66-1.6v.3a12.426 12.426 0 0 0 9.96 12.1 11.632 11.632 0 0 1-3.168.5 7.87 7.87 0 0 1-2.265-.2 12.483 12.483 0 0 0 11.548 8.7 23.817 23.817 0 0 1-15.4 5.3A14.578 14.578 0 0 1 0 43.5 35.742 35.742 0 0 0 18.79 49c22.64 0 35.094-19.1 35.094-35.7v-1.6a16.4 16.4 0 0 0 6.113-5.9z"/></svg></a>
+    </div>
+
+    <div class="contact-picture">
+      <img src="../../images/profile.jpg" class="contact-picture-img" width="1160" height="1160" loading="lazy">
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
+
